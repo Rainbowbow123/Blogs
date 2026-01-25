@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Rainbowbow</title>
+<link>https://rainbowbow123.github.io/</link>
+<atom:link href="https://rainbowbow123.github.io/index.xml" rel="self" type="application/rss+xml"/>
+<description>A blog built with Quarto</description>
+<generator>quarto-1.8.27</generator>
+<lastBuildDate>Sat, 24 Jan 2026 13:00:00 GMT</lastBuildDate>
+<item>
+  <title>Intuition behind Analyzing Likelihood Shapes through Contours and Hessians</title>
+  <link>https://rainbowbow123.github.io/posts/Likelihood_shape/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>When working with likelihood-based models, it is often useful to first form a rough picture of the likelihood surface before choosing an optimization or sampling method. Contour plots and Hessians provide two complementary views of this shape: contours show how likelihood varies across directions, while Hessians summarize local curvature at a point.</p>
+<p>Throughout this post, contour plots refer to level sets of the likelihood function<br>
+<img src="https://latex.codecogs.com/png.latex?f(y;%5Ctheta)"> as a function of the parameter vector <img src="https://latex.codecogs.com/png.latex?%5Ctheta">. For visualization, <img src="https://latex.codecogs.com/png.latex?%5Ctheta"> is restricted to two dimensions, even though the underlying parameter space is typically higher-dimensional.</p>
+<p>A simple reference case is the round bowl. The contour lines are closed and nearly circular. Moving away from the center produces similar changes in the likelihood in all directions. No direction appears noticeably flatter than others.</p>
+<p><img src="https://rainbowbow123.github.io/posts/Likelihood_shape/figures/round_bowl.png" class="img-fluid" style="width:65.0%"></p>
+<p>When the parameters are highly correlated, the contour will be dense along the line <img src="https://latex.codecogs.com/png.latex?%5Ctheta_1%20%5Capprox%20%5Calpha%20%5Ctheta_2">. In this case, contours become elongated and rotated, forming an elliptical bowl. The likelihood still decreases in all directions, but at different rates depending on direction. Some directions are flatter than others, though none are close to flat.</p>
+<p><img src="https://rainbowbow123.github.io/posts/Likelihood_shape/figures/elliptical_bowl.png" class="img-fluid" style="width:65.0%"></p>
+<p>With stronger anisotropy, the contours stretch further and form a long, narrow corridor. The likelihood changes rapidly when moving across the corridor, while changes along the corridor are much slower. This type of shape is commonly referred to as a ridge.</p>
+<p><img src="https://rainbowbow123.github.io/posts/Likelihood_shape/figures/near_ridge.png" class="img-fluid" style="width:65.0%"></p>
+<p>These visual differences correspond to differences in local curvature, which are summarized by the Hessian matrix. The Hessian is the matrix of second derivatives of the log-likelihood with respect to the parameters, evaluated at a point. Its eigenvalues describe curvature along orthogonal principal directions.</p>
+<p>For example, a Hessian of the form</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Bpmatrix%7D%0A-50%20&amp;%2010%20%5C%5C%0A10%20&amp;%20-45%0A%5Cend%7Bpmatrix%7D%0A"></p>
+<p>has eigenvalues of comparable magnitude. Both principal directions exhibit similar curvature, which corresponds to the roughly circular contours above.</p>
+<p>Increasing the off-diagonal terms produces stronger directional imbalance,</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Bpmatrix%7D%0A-50%20&amp;%2020%20%5C%5C%0A20%20&amp;%20-50%0A%5Cend%7Bpmatrix%7D.%0A"></p>
+<p>Here, one direction is flatter than the other, consistent with elongated but still well-behaved contours.</p>
+<p>In a ridge-like case, the imbalance becomes extreme. A matrix such as</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Bpmatrix%7D%0A-50%20&amp;%2049%20%5C%5C%0A49%20&amp;%20-50%0A%5Cend%7Bpmatrix%7D%0A"></p>
+<p>has eigenvalues that differ by orders of magnitude. For instance, one eigenvalue may be on the order of <img src="https://latex.codecogs.com/png.latex?100">, while the other is close to <img src="https://latex.codecogs.com/png.latex?0.1">. This indicates strong curvature in one direction and an almost flat direction in another, matching the narrow corridor seen in the contour plot.</p>
+<p>The separation between eigenvalues is often summarized by the condition number,</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Ckappa%20=%20%5Cfrac%7B%7C%5Clambda_%7B%5Cmax%7D%7C%7D%7B%7C%5Clambda_%7B%5Cmin%7D%7C%7D.%0A"></p>
+<p>Large values correspond to highly uneven curvature. By contrast, the determinant only reflects the product of curvatures across directions: it becomes small when at least one direction is nearly flat, but it does not distinguish a ridge from a uniformly rescaled surface.</p>
+<p>Contour plots and Hessians provide a compact way to form a basic picture of likelihood shape. Contours show how likelihood changes across directions in parameter space, while Hessians quantify this behavior locally at a point. Over time, reading these two objects side by side becomes a practical way to anticipate how different numerical methods are likely to behave.</p>
+
+
+
+ ]]></description>
+  <category>Optimization</category>
+  <category>Econometrics</category>
+  <category>Intuition</category>
+  <guid>https://rainbowbow123.github.io/posts/Likelihood_shape/</guid>
+  <pubDate>Sat, 24 Jan 2026 13:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Welcome To My Blog</title>
+  <dc:creator>Tristan O&#39;Malley</dc:creator>
+  <link>https://rainbowbow123.github.io/posts/welcome/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>This is the first post in a Quarto blog. Welcome!</p>
+<p><img src="https://rainbowbow123.github.io/posts/welcome/thumbnail.jpg" class="img-fluid"></p>
+<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
+
+
+
+ ]]></description>
+  <category>news</category>
+  <guid>https://rainbowbow123.github.io/posts/welcome/</guid>
+  <pubDate>Wed, 21 Jan 2026 13:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>
