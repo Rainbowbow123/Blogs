@@ -1,6 +1,7 @@
 ---
 title: "Intuition behind Analyzing Likelihood Shapes through Contours and Hessians"
 date: 2026-01-25
+author: 'Yanhong Wan'
 categories: [Optimization, Econometrics, Intuition]
 format:
   html:

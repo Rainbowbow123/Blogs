@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-01-25">
 
-<title>Rainbowbow</title>
+<title>Intuition behind Analyzing Likelihood Shapes through Contours and Hessians – Rainbowbow</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +24,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,35 +69,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -130,17 +100,17 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="Rainbowbow" href="index.xml" data-external="1"></head>
+<link rel="stylesheet" href="../../styles.css">
+</head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Rainbowbow</span>
     </a>
   </div>
@@ -151,11 +121,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">Rainbow’s Storage</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item compact">
@@ -178,103 +148,86 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Rainbowbow</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Intuition behind Analyzing Likelihood Shapes through Contours and Hessians</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Optimization</div>
+                <div class="quarto-category">Econometrics</div>
+                <div class="quarto-category">Intuition</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 25, 2026</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="RWNvbm9tZXRyaWNz">Econometrics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SW50dWl0aW9u">Intuition <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bmV3cw==">news <span class="quarto-category-count">(1)</span></div><div class="category" data-category="T3B0aW1pemF0aW9u">Optimization <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<p>When working with likelihood-based models, it is often useful to first form a rough picture of the likelihood surface before choosing an optimization or sampling method. Contour plots and Hessians provide two complementary views of this shape: contours show how likelihood varies across directions, while Hessians summarize local curvature at a point.</p>
+<p>Throughout this post, contour plots refer to level sets of the likelihood function<br>
+<span class="math inline">\(f(y;\theta)\)</span> as a function of the parameter vector <span class="math inline">\(\theta\)</span>. For visualization, <span class="math inline">\(\theta\)</span> is restricted to two dimensions, even though the underlying parameter space is typically higher-dimensional.</p>
+<p>A simple reference case is the round bowl. The contour lines are closed and nearly circular. Moving away from the center produces similar changes in the likelihood in all directions. No direction appears noticeably flatter than others.</p>
+<p><img src="figures/round_bowl.png" class="img-fluid" style="width:65.0%"></p>
+<p>When the parameters are highly correlated, the contour will be dense along the line <span class="math inline">\(\theta_1 \approx \alpha \theta_2\)</span>. In this case, contours become elongated and rotated, forming an elliptical bowl. The likelihood still decreases in all directions, but at different rates depending on direction. Some directions are flatter than others, though none are close to flat.</p>
+<p><img src="figures/elliptical_bowl.png" class="img-fluid" style="width:65.0%"></p>
+<p>With stronger anisotropy, the contours stretch further and form a long, narrow corridor. The likelihood changes rapidly when moving across the corridor, while changes along the corridor are much slower. This type of shape is commonly referred to as a ridge.</p>
+<p><img src="figures/near_ridge.png" class="img-fluid" style="width:65.0%"></p>
+<p>These visual differences correspond to differences in local curvature, which are summarized by the Hessian matrix. The Hessian is the matrix of second derivatives of the log-likelihood with respect to the parameters, evaluated at a point. Its eigenvalues describe curvature along orthogonal principal directions.</p>
+<p>For example, a Hessian of the form</p>
+<p><span class="math display">\[
+\begin{pmatrix}
+-50 &amp; 10 \\
+10 &amp; -45
+\end{pmatrix}
+\]</span></p>
+<p>has eigenvalues of comparable magnitude. Both principal directions exhibit similar curvature, which corresponds to the roughly circular contours above.</p>
+<p>Increasing the off-diagonal terms produces stronger directional imbalance,</p>
+<p><span class="math display">\[
+\begin{pmatrix}
+-50 &amp; 20 \\
+20 &amp; -50
+\end{pmatrix}.
+\]</span></p>
+<p>Here, one direction is flatter than the other, consistent with elongated but still well-behaved contours.</p>
+<p>In a ridge-like case, the imbalance becomes extreme. A matrix such as</p>
+<p><span class="math display">\[
+\begin{pmatrix}
+-50 &amp; 49 \\
+49 &amp; -50
+\end{pmatrix}
+\]</span></p>
+<p>has eigenvalues that differ by orders of magnitude. For instance, one eigenvalue may be on the order of <span class="math inline">\(100\)</span>, while the other is close to <span class="math inline">\(0.1\)</span>. This indicates strong curvature in one direction and an almost flat direction in another, matching the narrow corridor seen in the contour plot.</p>
+<p>The separation between eigenvalues is often summarized by the condition number,</p>
+<p><span class="math display">\[
+\kappa = \frac{|\lambda_{\max}|}{|\lambda_{\min}|}.
+\]</span></p>
+<p>Large values correspond to highly uneven curvature. By contrast, the determinant only reflects the product of curvatures across directions: it becomes small when at least one direction is nearly flat, but it does not distinguish a ridge from a uniformly rescaled surface.</p>
+<p>Contour plots and Hessians provide a compact way to form a basic picture of likelihood shape. Contours show how likelihood changes across directions in parameter space, while Hessians quantify this behavior locally at a point. Over time, reading these two objects side by side becomes a practical way to anticipate how different numerical methods are likely to behave.</p>
 
 
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="T3B0aW1pemF0aW9uJTJDRWNvbm9tZXRyaWNzJTJDSW50dWl0aW9u" data-listing-date-sort="1769259600000" data-listing-file-modified-sort="1769347366028" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="494">
-<div class="thumbnail"><a href="./posts/Likelihood_shape/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts/Likelihood_shape/figures/round_bowl.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Likelihood_shape/index.html" class="no-external">Intuition behind Analyzing Likelihood Shapes through Contours and Hessians</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('T3B0aW1pemF0aW9u'); return false;">Optimization</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RWNvbm9tZXRyaWNz'); return false;">Econometrics</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('SW50dWl0aW9u'); return false;">Intuition</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/Likelihood_shape/index.html" class="no-external">
-When working with likelihood-based models, it is often useful to first form a rough picture of the likelihood surface before choosing an optimization or sampling method.…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/Likelihood_shape/index.html" class="no-external">
-<div class="listing-date">
-Jan 25, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="bmV3cw==" data-listing-date-sort="1769000400000" data-listing-file-modified-sort="1769347366029" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="32">
-<div class="thumbnail"><a href="./posts/welcome/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts/welcome/thumbnail.jpg"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Welcome To My Blog</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bmV3cw=='); return false;">news</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/welcome/index.html" class="no-external">
-This is the first post in a Quarto blog. Welcome!
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-date">
-Jan 22, 2026
-</div>
-<div class="listing-author">
-Tristan O’Malley
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
