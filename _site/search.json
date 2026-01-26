@@ -2,23 +2,9 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "Rainbow’s Storage",
     "section": "",
-    "text": "About this blog"
-  },
-  {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
-    "section": "",
-    "text": "This is a post with executable code."
-  },
-  {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
-    "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+    "text": "This blog stores random things I want to share with no pressure. 🌻"
   },
   {
     "objectID": "posts/Likelihood_shape/index.html",
@@ -32,6 +18,6 @@
     "href": "index.html",
     "title": "Rainbowbow",
     "section": "",
-    "text": "Intuition behind Analyzing Likelihood Shapes through Contours and Hessians\n\n\n\nOptimization\n\nEconometrics\n\nIntuition\n\n\n\n\n\n\n\n\n\nJan 25, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 22, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+    "text": "Intuition behind Analyzing Likelihood Shapes through Contours and Hessians\n\n\n\nOptimization\n\nEconometrics\n\nIntuition\n\n\n\n\n\n\n\n\n\nJan 25, 2026\n\n\nYanhong Wan\n\n\n\n\n\nNo matching items"
   }
 ]

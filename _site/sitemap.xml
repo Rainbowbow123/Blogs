@@ -1,35 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://your-website-url.example.com/posts/Likelihood_shape/index.html</loc>
-    <lastmod>2026-01-25T12:11:32.815Z</lastmod>
-  </url>
-  <url>
-    <loc>https://your-website-url.example.com/about.html</loc>
-    <lastmod>2026-01-25T12:09:40.638Z</lastmod>
-  </url>
-  <url>
-    <loc>https://your-website-url.example.com/posts/post-with-code/index.html</loc>
-    <lastmod>2026-01-25T11:06:38.017Z</lastmod>
-  </url>
-  <url>
-    <loc>https://your-website-url.example.com/posts/welcome/index.html</loc>
-    <lastmod>2026-01-25T11:06:38.015Z</lastmod>
-  </url>
-  <url>
-    <loc>https://your-website-url.example.com/index.html</loc>
-    <lastmod>2026-01-25T11:06:38.014Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rainbowbow123.github.io/index.html</loc>
-    <lastmod>2026-01-25T11:06:38.014Z</lastmod>
+    <loc>https://rainbowbow123.github.io/about.html</loc>
+    <lastmod>2026-01-26T04:54:07.319Z</lastmod>
   </url>
   <url>
     <loc>https://rainbowbow123.github.io/posts/Likelihood_shape/index.html</loc>
-    <lastmod>2026-01-26T03:54:23.337Z</lastmod>
+    <lastmod>2026-01-26T04:52:13.460Z</lastmod>
   </url>
   <url>
-    <loc>https://rainbowbow123.github.io/about.html</loc>
-    <lastmod>2026-01-25T12:09:40.638Z</lastmod>
+    <loc>https://rainbowbow123.github.io/index.html</loc>
+    <lastmod>2026-01-25T13:22:46.024Z</lastmod>
   </url>
 </urlset>
