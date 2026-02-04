@@ -1,8 +1,9 @@
 ---
 title: "Introduction to Machine Learning: Gradient Descent and Neural Networks"
-date: 2026-01-25
+date: 2026-02-04
 author: 'Yanhong Wan'
 categories: [Optimization, Machine Learning]
+image: "figures/neural_network.png"
 format:
   html:
     toc: false
@@ -95,6 +96,7 @@ h_{2,i} &= \mathrm{ReLU}(z_{2,i}), \\
 \hat{y}_i &= W_3 h_{2,i} + b_3.
 \end{aligned}$$
 
+
 By the chain rule, backpropagation gives:
 $$\frac{\partial L}{\partial W_1}
 =
@@ -109,13 +111,15 @@ $$\frac{\partial L}{\partial W_1}
 \frac{\partial h_1}{\partial z_1}
 \cdot
 \frac{\partial z_1}{\partial W_1}.$$The goal is still to minimize the MSE, $L = \frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)^2$. For this network, the loss is differentiable with respect to all parameters, so gradients can be written in closed form using the chain rule. Specifically, for ReLu, the derivative is defined in a piecewise manner,
-\[
+
+$$
 \frac{d}{dz}\mathrm{ReLU}(z) =
 \begin{cases}
 1, & z > 0, \\
 0, & z < 0,
 \end{cases}
-\]
+$$
+
 and a subgradient at \( z=0 \) is typically chosen by convention. This leads to the indicator term \( \mathbf{1}(z>0) \) appearing in the gradients.
 
 We analytically write out the gradients for all parameters below.

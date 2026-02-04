@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Yanhong Wan">
-<meta name="dcterms.date" content="2026-01-25">
+<meta name="dcterms.date" content="2026-02-04">
 
 <title>Introduction to Machine Learning: Gradient Descent and Neural Networks – Yanhong Wan</title>
 <style>
@@ -203,7 +203,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">January 25, 2026</p>
+        <p class="date">February 4, 2026</p>
       </div>
     </div>
     
@@ -238,7 +238,7 @@ print(loss)</code></pre>
 <p>For a differentiable function, the gradient points in the direction of steepest increase. Minimization therefore proceeds by updating parameters in the opposite direction of the gradient. The step size of each update is controlled by the learning rate, whereas an excessively large learning rate may cause overshooting and divergence, and an excessively small learning rate leads to slow convergence.</p>
 <p>Below is an example of gradient descent for a linear regression <span class="math inline">\(\hat y = w x\)</span> with loss <span class="math inline">\(L = (y_{\text{true}} - wx)^2\)</span>. The gradient with respect to <span class="math inline">\(w\)</span> is <span class="math inline">\({\partial L}/{\partial w} = -2x (y_{\text{true}} - wx)\)</span>. Change the learning rate in the code below to see how it affects the optimization process. (It is generally good around 0.004. I have to change from Python to ObservableJS to make it interactive here.)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="45" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 44;"><span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>viewof learning_rate <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.0001</span><span class="op">,</span> <span class="fl">0.05</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.0005</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="fl">0.001</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"learning rate"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="46" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 45;"><span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>viewof learning_rate <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.0001</span><span class="op">,</span> <span class="fl">0.05</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.0005</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="fl">0.001</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"learning rate"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
@@ -246,7 +246,7 @@ print(loss)</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="50" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 49;"><span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="st">"Good Day Reader!🥰 Select your learning rate here👆"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="51" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 50;"><span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="st">"Good Day Reader!🥰 Select your learning rate here👆"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-1" data-nodetype="expression">
@@ -254,25 +254,25 @@ print(loss)</code></pre>
 </div>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="52" data-source-offset="-55"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 51;"><span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>w0 <span class="op">=</span> <span class="dv">8</span><span class="op">;</span></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> w0<span class="op">;</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>outputs <span class="op">=</span> {</span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> w <span class="op">=</span> w0<span class="op">;</span></span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> results <span class="op">=</span> []<span class="op">;</span></span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++</span>) {</span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> y_pred <span class="op">=</span> w <span class="op">*</span> x<span class="op">;</span></span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> gradient <span class="op">=</span> <span class="op">-</span><span class="dv">2</span> <span class="op">*</span> x <span class="op">*</span> (y_true <span class="op">-</span> y_pred)<span class="op">;</span></span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> w <span class="op">-</span> learning_rate <span class="op">*</span> gradient<span class="op">;</span></span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    results<span class="op">.</span><span class="fu">push</span>(<span class="vs">`iteration </span><span class="sc">${</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="vs">: current prediction </span><span class="sc">${</span>y_pred<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">, next w </span><span class="sc">${</span>w<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> results<span class="op">;</span></span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;ul&gt;</span><span class="sc">${</span>outputs<span class="op">.</span><span class="fu">map</span>(item <span class="kw">=&gt;</span> <span class="fu">html</span><span class="vs">`&lt;li&gt;</span><span class="sc">${</span>item<span class="sc">}</span><span class="vs">&lt;/li&gt;`</span>)<span class="sc">}</span><span class="vs">&lt;/ul&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="53" data-source-offset="-55"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 52;"><span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>w0 <span class="op">=</span> <span class="dv">8</span><span class="op">;</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> w0<span class="op">;</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>outputs <span class="op">=</span> {</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> w <span class="op">=</span> w0<span class="op">;</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> results <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> y_pred <span class="op">=</span> w <span class="op">*</span> x<span class="op">;</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> gradient <span class="op">=</span> <span class="op">-</span><span class="dv">2</span> <span class="op">*</span> x <span class="op">*</span> (y_true <span class="op">-</span> y_pred)<span class="op">;</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> w <span class="op">-</span> learning_rate <span class="op">*</span> gradient<span class="op">;</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    results<span class="op">.</span><span class="fu">push</span>(<span class="vs">`iteration </span><span class="sc">${</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="vs">: current prediction </span><span class="sc">${</span>y_pred<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">, next w </span><span class="sc">${</span>w<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> results<span class="op">;</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;ul&gt;</span><span class="sc">${</span>outputs<span class="op">.</span><span class="fu">map</span>(item <span class="kw">=&gt;</span> <span class="fu">html</span><span class="vs">`&lt;li&gt;</span><span class="sc">${</span>item<span class="sc">}</span><span class="vs">&lt;/li&gt;`</span>)<span class="sc">}</span><span class="vs">&lt;/ul&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-2" data-nodetype="declaration">
@@ -330,7 +330,7 @@ z_{2,i} &amp;= W_2 h_{1,i} + b_2, \\
 h_{2,i} &amp;= \mathrm{ReLU}(z_{2,i}), \\
 \hat{y}_i &amp;= W_3 h_{2,i} + b_3.
 \end{aligned}\]</span></p>
-By the chain rule, backpropagation gives: <span class="math display">\[\frac{\partial L}{\partial W_1}
+<p>By the chain rule, backpropagation gives: <span class="math display">\[\frac{\partial L}{\partial W_1}
 =
 \frac{\partial L}{\partial \hat y}
 \cdot
@@ -342,12 +342,15 @@ By the chain rule, backpropagation gives: <span class="math display">\[\frac{\pa
 \cdot
 \frac{\partial h_1}{\partial z_1}
 \cdot
-\frac{\partial z_1}{\partial W_1}.\]</span>The goal is still to minimize the MSE, <span class="math inline">\(L = \frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)^2\)</span>. For this network, the loss is differentiable with respect to all parameters, so gradients can be written in closed form using the chain rule. Specifically, for ReLu, the derivative is defined in a piecewise manner, [ (z) =
-<span class="math display">\[\begin{cases}
+\frac{\partial z_1}{\partial W_1}.\]</span>The goal is still to minimize the MSE, <span class="math inline">\(L = \frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)^2\)</span>. For this network, the loss is differentiable with respect to all parameters, so gradients can be written in closed form using the chain rule. Specifically, for ReLu, the derivative is defined in a piecewise manner,</p>
+<p><span class="math display">\[
+\frac{d}{dz}\mathrm{ReLU}(z) =
+\begin{cases}
 1, &amp; z &gt; 0, \\
 0, &amp; z &lt; 0,
-\end{cases}\]</span>
-<p>] and a subgradient at ( z=0 ) is typically chosen by convention. This leads to the indicator term ( (z&gt;0) ) appearing in the gradients.</p>
+\end{cases}
+\]</span></p>
+<p>and a subgradient at ( z=0 ) is typically chosen by convention. This leads to the indicator term ( (z&gt;0) ) appearing in the gradients.</p>
 <p>We analytically write out the gradients for all parameters below.</p>
 <p><span class="math inline">\(\frac{\partial L}{\partial W_3}
 =
