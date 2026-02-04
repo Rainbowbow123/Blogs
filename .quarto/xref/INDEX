@@ -13,5 +13,14 @@
   },
   "index.qmd": {
     "index.html": "f995fcc4"
+  },
+  "posts/Neural Network/index.qmd": {
+    "index.html": "a8043f44"
+  },
+  "posts/Linear Algebra Cheetsheat/index.qmd": {
+    "index.html": "e8e41894"
+  },
+  "posts/Neural_Network/index.qmd": {
+    "index.html": "17a53055"
   }
 }

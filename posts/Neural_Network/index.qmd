@@ -1,0 +1,164 @@
+---
+title: "Introduction to Machine Learning: Gradient Descent and Neural Networks"
+date: 2026-01-25
+author: 'Yanhong Wan'
+categories: [Optimization, Machine Learning]
+format:
+  html:
+    toc: false
+    mathjax: true
+---
+
+
+To understand machine learning, one must have a basic understanding of optimization. In a learning problem, a loss function is specified to evaluate estimation accuracy, and the goal of optimization is to minimize this loss. Specifically, a loss function assigns a scalar value to model predictions as a quantitative measure of estimation error. Common examples include:
+
+Mean Squared Error (MSE):
+$$L_{\text{MSE}} = \frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)^2$$
+
+Mean Absolute Error (MAE):
+$$L_{\text{MAE}} = \frac{1}{n}\sum_{i=1}^n |\hat y_i - y_i$$
+
+For binary classification, cross-entropy is commonly used:
+$$L_{\text{CE}} = -\frac{1}{n}\sum_{i=1}^n \left[y_i\log \hat p_i + (1-y_i)\log(1-\hat p_i)\right]$$
+
+Below is an example of the loss function of MSE.
+
+```
+import numpy as np 
+
+y_true = np.array([10,20,30])
+y_pred = np.array([12,18,27])
+
+loss = np.mean((y_true-y_pred)**2 )
+print(loss)
+```
+
+
+
+Once a loss function is specified, the next question is how to minimize it. This is handled by optimization algorithms. We introduce the most fundamental algorithm - gradient descent here.
+
+For a differentiable function, the gradient points in the direction of steepest increase. Minimization therefore proceeds by updating parameters in the opposite direction of the gradient. The step size of each update is controlled by the learning rate, whereas an excessively large learning rate may cause overshooting and divergence, and an excessively small learning rate leads to slow convergence. 
+
+Below is an example of gradient descent for a linear regression $\hat y = w x$ with loss $L = (y_{\text{true}} - wx)^2$. The gradient with respect to $w$ is ${\partial L}/{\partial w} = -2x (y_{\text{true}} - wx)$. Change the learning rate in the code below to see how it affects the optimization process. (It is generally good around 0.004. I have to change from Python to ObservableJS to make it interactive here.)
+
+```{ojs}
+//| echo: false
+viewof learning_rate = Inputs.range([0.0001, 0.05], {step: 0.0005, value: 0.001, label: "learning rate"})
+```
+
+```{ojs}
+"Good Day Reader!🥰 Select your learning rate here👆"
+
+x = 10;
+y_true = 100;
+w0 = 8;
+
+w = w0;
+
+outputs = {
+  let w = w0;
+  let results = [];
+  for (let i = 0; i < 5; i++) {
+    let y_pred = w * x;
+    let gradient = -2 * x * (y_true - y_pred);
+    w = w - learning_rate * gradient;
+    results.push(`iteration ${i+1}: current prediction ${y_pred.toFixed(2)}, next w ${w.toFixed(2)}`);
+  }
+  return results;
+}
+
+html`<ul>${outputs.map(item => html`<li>${item}</li>`)}</ul>`
+```
+
+So far, the model is a si mple linear regression. Next, we upgrade this regression model to a neural network. A neural network contains an input layer, one or more hidden layers, and an output layer. Each layer applies a linear transformation followed by an activation function.
+
+For a generic layer,
+
+$$z = W x + b,\quad h = \phi(z)$$,
+
+where $\phi(\cdot)$ denotes an activation function. Common choices include ReLU, sigmoid, and tanh. ReLU preserves positive inputs and truncates negative ones. Sigmoid and tanh map real-valued inputs into bounded intervals.
+
+ReLU: $\phi(z) = \max(0, z)$.
+Sigmoid:$\phi(z) = \frac{1}{1 + e^{-z}}$.
+Tanh:$\phi(z) = \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}$.
+Softmax (for vector-valued input $z$):$\phi(z_j) = \frac{e^{z_j}}{\sum_k e^{z_k}}$.
+
+All these activation functions introduce nonlinearity。 Without activation functions, stacking multiple layers would still result in a linear model. Like in linear regression, we can also use gradient descent to optimize the parameters of a neural network. The gradients can be computed using backpropagation, which applies the chain rule of calculus to propagate gradients from the output layer back to the input layer. For example, we consider a neural network with 2 hidden layers. The input $x$ is transformed through the first hidden layer to produce $h_1$, then through the second hidden layer to produce $h_2$, and finally to the output $y$.
+
+Forward:
+
+$$\begin{aligned}
+z_{1,i} &= W_1 x_i + b_1, \\
+h_{1,i} &= \mathrm{ReLU}(z_{1,i}), \\
+z_{2,i} &= W_2 h_{1,i} + b_2, \\
+h_{2,i} &= \mathrm{ReLU}(z_{2,i}), \\
+\hat{y}_i &= W_3 h_{2,i} + b_3.
+\end{aligned}$$
+
+By the chain rule, backpropagation gives:
+$$\frac{\partial L}{\partial W_1}
+=
+\frac{\partial L}{\partial \hat y}
+\cdot
+\frac{\partial \hat y}{\partial h_2}
+\cdot
+\frac{\partial h_2}{\partial z_2}
+\cdot
+\frac{\partial z_2}{\partial h_1}
+\cdot
+\frac{\partial h_1}{\partial z_1}
+\cdot
+\frac{\partial z_1}{\partial W_1}.$$The goal is still to minimize the MSE, $L = \frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)^2$. For this network, the loss is differentiable with respect to all parameters, so gradients can be written in closed form using the chain rule. Specifically, for ReLu, the derivative is defined in a piecewise manner,
+\[
+\frac{d}{dz}\mathrm{ReLU}(z) =
+\begin{cases}
+1, & z > 0, \\
+0, & z < 0,
+\end{cases}
+\]
+and a subgradient at \( z=0 \) is typically chosen by convention. This leads to the indicator term \( \mathbf{1}(z>0) \) appearing in the gradients.
+
+We analytically write out the gradients for all parameters below.
+
+
+$\frac{\partial L}{\partial W_3}
+=
+\frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)\, h_{2,i}^T$,
+
+$\frac{\partial L}{\partial b_3}
+=
+\frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)$,
+
+$\frac{\partial L}{\partial W_2}
+=
+\frac{1}{n}\sum_{i=1}^n
+(\hat y_i - y_i)\,
+W_3\,
+\mathbf{1}(z_{2,i}>0)\,
+h_{1,i}^T$,
+
+$\frac{\partial L}{\partial b_2}
+=
+\frac{1}{n}\sum_{i=1}^n
+(\hat y_i - y_i)\,
+W_3\,
+\mathbf{1}(z_{2,i}>0)$,
+
+$\frac{\partial L}{\partial W_1}
+=
+\frac{1}{n}\sum_{i=1}^n
+(\hat y_i - y_i)\,
+W_3 W_2\,
+\mathbf{1}(z_{2,i}>0)\,
+\mathbf{1}(z_{1,i}>0)\,
+x_i^T$,
+
+$\frac{\partial L}{\partial b_1}
+=
+\frac{1}{n}\sum_{i=1}^n
+(\hat y_i - y_i)\,
+W_3 W_2\,
+\mathbf{1}(z_{2,i}>0)\,
+\mathbf{1}(z_{1,i}>0)$.
+
+In the next post, I will use these analytically derived gradients to perform optimization for this network in Python.
