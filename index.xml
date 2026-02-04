@@ -10,7 +10,7 @@
 <atom:link href="https://rainbowbow123.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>Rainbow’s Storage</description>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Sat, 24 Jan 2026 13:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 03 Feb 2026 13:00:00 GMT</lastBuildDate>
 <item>
   <title>Introduction to Machine Learning: Gradient Descent and Neural Networks</title>
   <dc:creator>Yanhong Wan</dc:creator>
@@ -37,7 +37,7 @@ print(loss)</code></pre>
 <p>For a differentiable function, the gradient points in the direction of steepest increase. Minimization therefore proceeds by updating parameters in the opposite direction of the gradient. The step size of each update is controlled by the learning rate, whereas an excessively large learning rate may cause overshooting and divergence, and an excessively small learning rate leads to slow convergence.</p>
 <p>Below is an example of gradient descent for a linear regression <img src="https://latex.codecogs.com/png.latex?%5Chat%20y%20=%20w%20x"> with loss <img src="https://latex.codecogs.com/png.latex?L%20=%20(y_%7B%5Ctext%7Btrue%7D%7D%20-%20wx)%5E2">. The gradient with respect to <img src="https://latex.codecogs.com/png.latex?w"> is <img src="https://latex.codecogs.com/png.latex?%7B%5Cpartial%20L%7D/%7B%5Cpartial%20w%7D%20=%20-2x%20(y_%7B%5Ctext%7Btrue%7D%7D%20-%20wx)">. Change the learning rate in the code below to see how it affects the optimization process. (It is generally good around 0.004. I have to change from Python to ObservableJS to make it interactive here.)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="45" data-source-offset="0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 44;"><span id="cb2-45">viewof learning_rate <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="46" data-source-offset="0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 45;"><span id="cb2-46">viewof learning_rate <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -81,7 +81,7 @@ font-style: inherit;">"learning rate"</span>})</span></code></pre></div></div>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="50" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 49;"><span id="cb3-50"><span class="st" style="color: #20794D;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="51" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 50;"><span id="cb3-51"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Good Day Reader!🥰 Select your learning rate here👆"</span></span></code></pre></div></div>
 <div class="cell-output cell-output-display">
@@ -91,38 +91,38 @@ font-style: inherit;">"Good Day Reader!🥰 Select your learning rate here👆"<
 </div>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="52" data-source-offset="-55" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 51;"><span id="cb4-52">x <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="53" data-source-offset="-55" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 52;"><span id="cb4-53">x <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">10</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb4-53">y_true <span class="op" style="color: #5E5E5E;
+<span id="cb4-54">y_true <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">100</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb4-54">w0 <span class="op" style="color: #5E5E5E;
+<span id="cb4-55">w0 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">8</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb4-55"></span>
-<span id="cb4-56">w <span class="op" style="color: #5E5E5E;
+<span id="cb4-56"></span>
+<span id="cb4-57">w <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> w0<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb4-57"></span>
-<span id="cb4-58">outputs <span class="op" style="color: #5E5E5E;
+<span id="cb4-58"></span>
+<span id="cb4-59">outputs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> {</span>
-<span id="cb4-59">  <span class="kw" style="color: #003B4F;
+<span id="cb4-60">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> w <span class="op" style="color: #5E5E5E;
@@ -130,7 +130,7 @@ background-color: null;
 font-style: inherit;">=</span> w0<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb4-60">  <span class="kw" style="color: #003B4F;
+<span id="cb4-61">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> results <span class="op" style="color: #5E5E5E;
@@ -138,7 +138,7 @@ background-color: null;
 font-style: inherit;">=</span> []<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb4-61">  <span class="cf" style="color: #003B4F;
+<span id="cb4-62">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> (<span class="kw" style="color: #003B4F;
@@ -159,7 +159,7 @@ background-color: null;
 font-style: inherit;">;</span> i<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">++</span>) {</span>
-<span id="cb4-62">    <span class="kw" style="color: #003B4F;
+<span id="cb4-63">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> y_pred <span class="op" style="color: #5E5E5E;
@@ -169,7 +169,7 @@ background-color: null;
 font-style: inherit;">*</span> x<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb4-63">    <span class="kw" style="color: #003B4F;
+<span id="cb4-64">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> gradient <span class="op" style="color: #5E5E5E;
@@ -187,7 +187,7 @@ background-color: null;
 font-style: inherit;">-</span> y_pred)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb4-64">    w <span class="op" style="color: #5E5E5E;
+<span id="cb4-65">    w <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> w <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -196,7 +196,7 @@ background-color: null;
 font-style: inherit;">*</span> gradient<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb4-65">    results<span class="op" style="color: #5E5E5E;
+<span id="cb4-66">    results<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -239,16 +239,16 @@ background-color: null;
 font-style: inherit;">`</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb4-66">  }</span>
-<span id="cb4-67">  <span class="cf" style="color: #003B4F;
+<span id="cb4-67">  }</span>
+<span id="cb4-68">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> results<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb4-68">}</span>
-<span id="cb4-69"></span>
-<span id="cb4-70"><span class="fu" style="color: #4758AB;
+<span id="cb4-69">}</span>
+<span id="cb4-70"></span>
+<span id="cb4-71"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">html</span><span class="vs" style="color: #20794D;
 background-color: null;
@@ -327,9 +327,9 @@ font-style: inherit;">&lt;/ul&gt;`</span></span></code></pre></div></div>
 <p>All these activation functions introduce nonlinearity。 Without activation functions, stacking multiple layers would still result in a linear model. Like in linear regression, we can also use gradient descent to optimize the parameters of a neural network. The gradients can be computed using backpropagation, which applies the chain rule of calculus to propagate gradients from the output layer back to the input layer. For example, we consider a neural network with 2 hidden layers. The input <img src="https://latex.codecogs.com/png.latex?x"> is transformed through the first hidden layer to produce <img src="https://latex.codecogs.com/png.latex?h_1">, then through the second hidden layer to produce <img src="https://latex.codecogs.com/png.latex?h_2">, and finally to the output <img src="https://latex.codecogs.com/png.latex?y">.</p>
 <p>Forward:</p>
 <p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%0Az_%7B1,i%7D%20&amp;=%20W_1%20x_i%20+%20b_1,%20%5C%5C%0Ah_%7B1,i%7D%20&amp;=%20%5Cmathrm%7BReLU%7D(z_%7B1,i%7D),%20%5C%5C%0Az_%7B2,i%7D%20&amp;=%20W_2%20h_%7B1,i%7D%20+%20b_2,%20%5C%5C%0Ah_%7B2,i%7D%20&amp;=%20%5Cmathrm%7BReLU%7D(z_%7B2,i%7D),%20%5C%5C%0A%5Chat%7By%7D_i%20&amp;=%20W_3%20h_%7B2,i%7D%20+%20b_3.%0A%5Cend%7Baligned%7D"></p>
-By the chain rule, backpropagation gives: <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B%5Cpartial%20L%7D%7B%5Cpartial%20W_1%7D%0A=%0A%5Cfrac%7B%5Cpartial%20L%7D%7B%5Cpartial%20%5Chat%20y%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20%5Chat%20y%7D%7B%5Cpartial%20h_2%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20h_2%7D%7B%5Cpartial%20z_2%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20z_2%7D%7B%5Cpartial%20h_1%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20h_1%7D%7B%5Cpartial%20z_1%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20z_1%7D%7B%5Cpartial%20W_1%7D.">The goal is still to minimize the MSE, <img src="https://latex.codecogs.com/png.latex?L%20=%20%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi=1%7D%5En%20(%5Chat%20y_i%20-%20y_i)%5E2">. For this network, the loss is differentiable with respect to all parameters, so gradients can be written in closed form using the chain rule. Specifically, for ReLu, the derivative is defined in a piecewise manner, [ (z) =
-<img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Bcases%7D%0A1,%20&amp;%20z%20%3E%200,%20%5C%5C%0A0,%20&amp;%20z%20%3C%200,%0A%5Cend%7Bcases%7D">
-<p>] and a subgradient at ( z=0 ) is typically chosen by convention. This leads to the indicator term ( (z&gt;0) ) appearing in the gradients.</p>
+<p>By the chain rule, backpropagation gives: <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B%5Cpartial%20L%7D%7B%5Cpartial%20W_1%7D%0A=%0A%5Cfrac%7B%5Cpartial%20L%7D%7B%5Cpartial%20%5Chat%20y%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20%5Chat%20y%7D%7B%5Cpartial%20h_2%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20h_2%7D%7B%5Cpartial%20z_2%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20z_2%7D%7B%5Cpartial%20h_1%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20h_1%7D%7B%5Cpartial%20z_1%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20z_1%7D%7B%5Cpartial%20W_1%7D.">The goal is still to minimize the MSE, <img src="https://latex.codecogs.com/png.latex?L%20=%20%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi=1%7D%5En%20(%5Chat%20y_i%20-%20y_i)%5E2">. For this network, the loss is differentiable with respect to all parameters, so gradients can be written in closed form using the chain rule. Specifically, for ReLu, the derivative is defined in a piecewise manner,</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7Bd%7D%7Bdz%7D%5Cmathrm%7BReLU%7D(z)%20=%0A%5Cbegin%7Bcases%7D%0A1,%20&amp;%20z%20%3E%200,%20%5C%5C%0A0,%20&amp;%20z%20%3C%200,%0A%5Cend%7Bcases%7D%0A"></p>
+<p>and a subgradient at ( z=0 ) is typically chosen by convention. This leads to the indicator term ( (z&gt;0) ) appearing in the gradients.</p>
 <p>We analytically write out the gradients for all parameters below.</p>
 <p><img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B%5Cpartial%20L%7D%7B%5Cpartial%20W_3%7D%0A=%0A%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi=1%7D%5En%20(%5Chat%20y_i%20-%20y_i)%5C,%20h_%7B2,i%7D%5ET">,</p>
 <p><img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B%5Cpartial%20L%7D%7B%5Cpartial%20b_3%7D%0A=%0A%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi=1%7D%5En%20(%5Chat%20y_i%20-%20y_i)">,</p>
@@ -345,7 +345,8 @@ By the chain rule, backpropagation gives: <img src="https://latex.codecogs.com/p
   <category>Optimization</category>
   <category>Machine Learning</category>
   <guid>https://rainbowbow123.github.io/posts/Neural_Network/</guid>
-  <pubDate>Sat, 24 Jan 2026 13:00:00 GMT</pubDate>
+  <pubDate>Tue, 03 Feb 2026 13:00:00 GMT</pubDate>
+  <media:content url="https://rainbowbow123.github.io/posts/Neural_Network/figures/neural_network.png" medium="image" type="image/png" height="96" width="144"/>
 </item>
 <item>
   <title>Intuition behind Analyzing Likelihood Shapes through Contours and Hessians</title>
