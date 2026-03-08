@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/tail_behavior/index.html",
       "/posts/Neural_Network/index.html",
       "/posts/Likelihood_shape/index.html"
     ]
