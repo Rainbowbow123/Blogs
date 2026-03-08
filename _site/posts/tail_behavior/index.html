@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Yanhong Wan">
-<meta name="dcterms.date" content="2026-02-04">
+<meta name="dcterms.date" content="2026-03-08">
 
-<title>Introduction to Machine Learning: Gradient Descent and Neural Networks – Yanhong Wan</title>
+<title>A Guide to Distinguishing Tail Classes: Single Big Jumps – Yanhong Wan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -105,8 +70,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
-<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -141,7 +104,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -182,10 +145,10 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Introduction to Machine Learning: Gradient Descent and Neural Networks</h1>
+      <h1 class="title">A Guide to Distinguishing Tail Classes: Single Big Jumps</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Optimization</div>
-                <div class="quarto-category">Machine Learning</div>
+                <div class="quarto-category">Econometrics</div>
+                <div class="quarto-category">Extreme Value Theory</div>
               </div>
                   </div>
   </div>
@@ -203,7 +166,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 4, 2026</p>
+        <p class="date">March 8, 2026</p>
       </div>
     </div>
     
@@ -214,7 +177,24 @@ window.Quarto = {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#does-the-mgf-exist" id="toc-does-the-mgf-exist" class="nav-link active" data-scroll-target="#does-the-mgf-exist">1. Does the MGF Exist?</a></li>
+  <li><a href="#the-hierarchy-of-heavy-tails" id="toc-the-hierarchy-of-heavy-tails" class="nav-link" data-scroll-target="#the-hierarchy-of-heavy-tails">2. The Hierarchy of Heavy Tails</a>
+  <ul class="collapse">
+  <li><a href="#long-tailed-distributions" id="toc-long-tailed-distributions" class="nav-link" data-scroll-target="#long-tailed-distributions">2.1 Long-tailed distributions</a></li>
+  <li><a href="#subexponential-distributions-and-the-single-big-jump" id="toc-subexponential-distributions-and-the-single-big-jump" class="nav-link" data-scroll-target="#subexponential-distributions-and-the-single-big-jump">2.2 Subexponential distributions and the “Single Big Jump”</a></li>
+  <li><a href="#regular-variation-power-law-tails" id="toc-regular-variation-power-law-tails" class="nav-link" data-scroll-target="#regular-variation-power-law-tails">2.3 Regular variation (power-law tails)</a></li>
+  </ul></li>
+  <li><a href="#light-tails-the-conspiracy-of-smalls" id="toc-light-tails-the-conspiracy-of-smalls" class="nav-link" data-scroll-target="#light-tails-the-conspiracy-of-smalls">3. Light Tails: The “Conspiracy of Smalls”</a></li>
+  <li><a href="#summary-of-tail-classes" id="toc-summary-of-tail-classes" class="nav-link" data-scroll-target="#summary-of-tail-classes">4. Summary of Tail Classes</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">5. Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -222,185 +202,165 @@ window.Quarto = {
 
 
 
-<p>To understand machine learning, one must have a basic understanding of optimization. In a learning problem, a loss function is specified to evaluate estimation accuracy, and the goal of optimization is to minimize this loss. Specifically, a loss function assigns a scalar value to model predictions as a quantitative measure of estimation error. Common examples include:</p>
-<p>Mean Squared Error (MSE): <span class="math display">\[L_{\text{MSE}} = \frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)^2\]</span></p>
-<p>Mean Absolute Error (MAE): <span class="math display">\[L_{\text{MAE}} = \frac{1}{n}\sum_{i=1}^n |\hat y_i - y_i\]</span></p>
-<p>For binary classification, cross-entropy is commonly used: <span class="math display">\[L_{\text{CE}} = -\frac{1}{n}\sum_{i=1}^n \left[y_i\log \hat p_i + (1-y_i)\log(1-\hat p_i)\right]\]</span></p>
-<p>Below is an example of the loss function of MSE.</p>
-<pre><code>import numpy as np 
-
-y_true = np.array([10,20,30])
-y_pred = np.array([12,18,27])
-
-loss = np.mean((y_true-y_pred)**2 )
-print(loss)</code></pre>
-<p>Once a loss function is specified, the next question is how to minimize it. This is handled by optimization algorithms. We introduce the most fundamental algorithm - gradient descent here.</p>
-<p>For a differentiable function, the gradient points in the direction of steepest increase. Minimization therefore proceeds by updating parameters in the opposite direction of the gradient. The step size of each update is controlled by the learning rate, whereas an excessively large learning rate may cause overshooting and divergence, and an excessively small learning rate leads to slow convergence.</p>
-<p>Below is an example of gradient descent for a linear regression <span class="math inline">\(\hat y = w x\)</span> with loss <span class="math inline">\(L = (y_{\text{true}} - wx)^2\)</span>. The gradient with respect to <span class="math inline">\(w\)</span> is <span class="math inline">\({\partial L}/{\partial w} = -2x (y_{\text{true}} - wx)\)</span>. Change the learning rate in the code below to see how it affects the optimization process. (It is generally good around 0.004. I have to change from Python to ObservableJS to make it interactive here.)</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="46" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 45;"><span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>viewof learning_rate <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.0001</span><span class="op">,</span> <span class="fl">0.05</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.0005</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="fl">0.001</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"learning rate"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div id="ojs-cell-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="51" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 50;"><span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="st">"Good Day Reader!🥰 Select your learning rate here👆"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-1" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="53" data-source-offset="-55"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 52;"><span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>w0 <span class="op">=</span> <span class="dv">8</span><span class="op">;</span></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> w0<span class="op">;</span></span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>outputs <span class="op">=</span> {</span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> w <span class="op">=</span> w0<span class="op">;</span></span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> results <span class="op">=</span> []<span class="op">;</span></span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++</span>) {</span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> y_pred <span class="op">=</span> w <span class="op">*</span> x<span class="op">;</span></span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> gradient <span class="op">=</span> <span class="op">-</span><span class="dv">2</span> <span class="op">*</span> x <span class="op">*</span> (y_true <span class="op">-</span> y_pred)<span class="op">;</span></span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> w <span class="op">-</span> learning_rate <span class="op">*</span> gradient<span class="op">;</span></span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    results<span class="op">.</span><span class="fu">push</span>(<span class="vs">`iteration </span><span class="sc">${</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="vs">: current prediction </span><span class="sc">${</span>y_pred<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">, next w </span><span class="sc">${</span>w<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> results<span class="op">;</span></span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;ul&gt;</span><span class="sc">${</span>outputs<span class="op">.</span><span class="fu">map</span>(item <span class="kw">=&gt;</span> <span class="fu">html</span><span class="vs">`&lt;li&gt;</span><span class="sc">${</span>item<span class="sc">}</span><span class="vs">&lt;/li&gt;`</span>)<span class="sc">}</span><span class="vs">&lt;/ul&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-2" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-3" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-4" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-5" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-6" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-7" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-</div>
-<p>So far, the model is a si mple linear regression. Next, we upgrade this regression model to a neural network. A neural network contains an input layer, one or more hidden layers, and an output layer. Each layer applies a linear transformation followed by an activation function.</p>
-<p>For a generic layer,</p>
-<p><span class="math display">\[z = W x + b,\quad h = \phi(z)\]</span>,</p>
-<p>where <span class="math inline">\(\phi(\cdot)\)</span> denotes an activation function. Common choices include ReLU, sigmoid, and tanh. ReLU preserves positive inputs and truncates negative ones. Sigmoid and tanh map real-valued inputs into bounded intervals.</p>
-<p>ReLU: <span class="math inline">\(\phi(z) = \max(0, z)\)</span>. Sigmoid:<span class="math inline">\(\phi(z) = \frac{1}{1 + e^{-z}}\)</span>. Tanh:<span class="math inline">\(\phi(z) = \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}\)</span>. Softmax (for vector-valued input <span class="math inline">\(z\)</span>):<span class="math inline">\(\phi(z_j) = \frac{e^{z_j}}{\sum_k e^{z_k}}\)</span>.</p>
-<p>All these activation functions introduce nonlinearity。 Without activation functions, stacking multiple layers would still result in a linear model. Like in linear regression, we can also use gradient descent to optimize the parameters of a neural network. The gradients can be computed using backpropagation, which applies the chain rule of calculus to propagate gradients from the output layer back to the input layer. For example, we consider a neural network with 2 hidden layers. The input <span class="math inline">\(x\)</span> is transformed through the first hidden layer to produce <span class="math inline">\(h_1\)</span>, then through the second hidden layer to produce <span class="math inline">\(h_2\)</span>, and finally to the output <span class="math inline">\(y\)</span>.</p>
-<p>Forward:</p>
-<p><span class="math display">\[\begin{aligned}
-z_{1,i} &amp;= W_1 x_i + b_1, \\
-h_{1,i} &amp;= \mathrm{ReLU}(z_{1,i}), \\
-z_{2,i} &amp;= W_2 h_{1,i} + b_2, \\
-h_{2,i} &amp;= \mathrm{ReLU}(z_{2,i}), \\
-\hat{y}_i &amp;= W_3 h_{2,i} + b_3.
-\end{aligned}\]</span></p>
-<p>By the chain rule, backpropagation gives: <span class="math display">\[\frac{\partial L}{\partial W_1}
-=
-\frac{\partial L}{\partial \hat y}
-\cdot
-\frac{\partial \hat y}{\partial h_2}
-\cdot
-\frac{\partial h_2}{\partial z_2}
-\cdot
-\frac{\partial z_2}{\partial h_1}
-\cdot
-\frac{\partial h_1}{\partial z_1}
-\cdot
-\frac{\partial z_1}{\partial W_1}.\]</span>The goal is still to minimize the MSE, <span class="math inline">\(L = \frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)^2\)</span>. For this network, the loss is differentiable with respect to all parameters, so gradients can be written in closed form using the chain rule. Specifically, for ReLu, the derivative is defined in a piecewise manner,</p>
-$ (z) =
-<span class="math display">\[\begin{cases}
-1, &amp; z &gt; 0, \\
-0, &amp; z &lt; 0,
-\end{cases}\]</span>
-<p>$</p>
-<p>and a subgradient at ( z=0 ) is typically chosen by convention. This leads to the indicator term ( (z&gt;0) ) appearing in the gradients.</p>
-<p>We analytically write out the gradients for all parameters below.</p>
-<p><span class="math inline">\(\frac{\partial L}{\partial W_3}
-=
-\frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)\, h_{2,i}^T\)</span>,</p>
-<p><span class="math inline">\(\frac{\partial L}{\partial b_3}
-=
-\frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)\)</span>,</p>
-<p><span class="math inline">\(\frac{\partial L}{\partial W_2}
-=
-\frac{1}{n}\sum_{i=1}^n
-(\hat y_i - y_i)\,
-W_3\,
-\mathbf{1}(z_{2,i}&gt;0)\,
-h_{1,i}^T\)</span>,</p>
-<p><span class="math inline">\(\frac{\partial L}{\partial b_2}
-=
-\frac{1}{n}\sum_{i=1}^n
-(\hat y_i - y_i)\,
-W_3\,
-\mathbf{1}(z_{2,i}&gt;0)\)</span>,</p>
-<p><span class="math inline">\(\frac{\partial L}{\partial W_1}
-=
-\frac{1}{n}\sum_{i=1}^n
-(\hat y_i - y_i)\,
-W_3 W_2\,
-\mathbf{1}(z_{2,i}&gt;0)\,
-\mathbf{1}(z_{1,i}&gt;0)\,
-x_i^T\)</span>,</p>
-<p><span class="math inline">\(\frac{\partial L}{\partial b_1}
-=
-\frac{1}{n}\sum_{i=1}^n
-(\hat y_i - y_i)\,
-W_3 W_2\,
-\mathbf{1}(z_{2,i}&gt;0)\,
-\mathbf{1}(z_{1,i}&gt;0)\)</span>.</p>
-<p>In the next post, I will use these analytically derived gradients to perform optimization for this network in Python.</p>
+<section id="does-the-mgf-exist" class="level2">
+<h2 class="anchored" data-anchor-id="does-the-mgf-exist">1. Does the MGF Exist?</h2>
+<p>A fundamental distinction in probability theory and econometrics is whether a distribution possesses a <strong>moment generating function (MGF)</strong>.</p>
+<p>Let</p>
+<p><span class="math display">\[
+M_X(t) = E[e^{tX}]
+\]</span></p>
+<p>denote the MGF of a random variable <span class="math inline">\(X\)</span>.</p>
+<p>A distribution <span class="math inline">\(F\)</span> is called <strong>heavy-tailed</strong> if</p>
+<p><span class="math display">\[
+M_X(t) = \infty, \qquad \forall t &gt; 0
+\]</span></p>
+<p>In contrast, if there exists some <span class="math inline">\(t&gt;0\)</span> such that</p>
+<p><span class="math display">\[
+M_X(t) &lt; \infty,
+\]</span></p>
+<p>the distribution is said to be <strong>light-tailed</strong>.</p>
+<p>This criterion acts as a natural “death line”: once the MGF ceases to exist, classical exponential large-deviation tools break down, and extreme outcomes become fundamentally more likely.</p>
+<hr>
+</section>
+<section id="the-hierarchy-of-heavy-tails" class="level2">
+<h2 class="anchored" data-anchor-id="the-hierarchy-of-heavy-tails">2. The Hierarchy of Heavy Tails</h2>
+<p>Heavy-tailed distributions themselves form a structured hierarchy.<br>
+A commonly used nesting is</p>
+<p><span class="math display">\[
+\text{Regularly Varying}
+\subset
+\text{Subexponential}
+\subset
+\text{Long-tailed}
+\subset
+\text{Heavy-tailed}.
+\]</span></p>
+<p>Each step corresponds to progressively weaker assumptions about how slowly the tail decays.</p>
+<hr>
+<section id="long-tailed-distributions" class="level3">
+<h3 class="anchored" data-anchor-id="long-tailed-distributions">2.1 Long-tailed distributions</h3>
+<p>A distribution belongs to the <strong>long-tailed class</strong> if</p>
+<p><span class="math display">\[
+\frac{\bar F(x+y)}{\bar F(x)} \to 1
+\quad \text{as } x \to \infty
+\]</span></p>
+<p>for every fixed <span class="math inline">\(y\)</span>, where</p>
+<p><span class="math display">\[
+\bar F(x) = P(X&gt;x)
+\]</span></p>
+<p>is the survival function.</p>
+<p>Intuitively, adding a fixed constant <span class="math inline">\(y\)</span> barely changes the tail probability when <span class="math inline">\(x\)</span> is large.</p>
+<hr>
+</section>
+<section id="subexponential-distributions-and-the-single-big-jump" class="level3">
+<h3 class="anchored" data-anchor-id="subexponential-distributions-and-the-single-big-jump">2.2 Subexponential distributions and the “Single Big Jump”</h3>
+<p>A central subclass of heavy tails is the <strong>subexponential class</strong>, defined by</p>
+<p><span class="math display">\[
+\overline{F^{*2}}(x) \sim 2\bar F(x),
+\quad x \to \infty.
+\]</span></p>
+<p>Equivalently,</p>
+<p><span class="math display">\[
+P(X_1 + X_2 &gt; x) \sim 2P(X &gt; x)
+\]</span></p>
+<p>for independent copies <span class="math inline">\(X_1, X_2\)</span>.</p>
+<p>This property leads to the <strong>Single Big Jump Principle</strong>:</p>
+<blockquote class="blockquote">
+<p>When a sum of subexponential variables becomes extremely large, it is typically caused by <strong>one extreme observation</strong>, rather than by the accumulation of many moderate values.</p>
+</blockquote>
+<hr>
+</section>
+<section id="regular-variation-power-law-tails" class="level3">
+<h3 class="anchored" data-anchor-id="regular-variation-power-law-tails">2.3 Regular variation (power-law tails)</h3>
+<p>The most widely studied heavy tails are <strong>regularly varying tails</strong>, characterized by</p>
+<p><span class="math display">\[
+\frac{\bar F(tx)}{\bar F(x)} \to t^{-\alpha},
+\quad t&gt;0.
+\]</span></p>
+<p>Equivalently,</p>
+<p><span class="math display">\[
+\bar F(x) = x^{-\alpha} L(x),
+\]</span></p>
+<p>where <span class="math inline">\(L(x)\)</span> is a <strong>slowly varying function</strong>.</p>
+<p>Regular variation provides a tractable mathematical structure and plays a central role in extreme value theory and financial tail modeling.</p>
+<hr>
+</section>
+</section>
+<section id="light-tails-the-conspiracy-of-smalls" class="level2">
+<h2 class="anchored" data-anchor-id="light-tails-the-conspiracy-of-smalls">3. Light Tails: The “Conspiracy of Smalls”</h2>
+<p>Light-tailed distributions behave very differently from heavy-tailed ones.</p>
+<p>For light tails, the probability of producing one extremely large observation is exponentially small. As a result, extreme sums typically arise through the <strong>combined effect of multiple moderately large values</strong>, rather than a single outlier.</p>
+<p>For example, suppose</p>
+<p><span class="math display">\[
+f(x) \propto e^{-x^2}.
+\]</span></p>
+<p>To produce a sum of <span class="math inline">\(10\)</span>:</p>
+<ul>
+<li><strong>Single jump:</strong> <span class="math inline">\((10 + 0)\)</span> gives probability <span class="math inline">\(\propto e^{-100}\)</span></li>
+<li><strong>Two moderate values:</strong> <span class="math inline">\((5 + 5)\)</span> gives probability <span class="math inline">\(\propto e^{-50}\)</span></li>
+</ul>
+<p>Since <span class="math inline">\(e^{-50} \gg e^{-100}\)</span>, the second scenario dominates.</p>
+<p>This phenomenon explains why Gaussian-type distributions do <strong>not</strong> satisfy the subexponential property.</p>
+<hr>
+</section>
+<section id="summary-of-tail-classes" class="level2">
+<h2 class="anchored" data-anchor-id="summary-of-tail-classes">4. Summary of Tail Classes</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 50%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Class</th>
+<th>Mathematical Criterion</th>
+<th>Typical Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Light-tailed</td>
+<td><span class="math inline">\(M_X(t)&lt;\infty\)</span> for some <span class="math inline">\(t&gt;0\)</span></td>
+<td>Normal, Exponential</td>
+</tr>
+<tr class="even">
+<td>Heavy-tailed</td>
+<td><span class="math inline">\(M_X(t)=\infty\)</span> for all <span class="math inline">\(t&gt;0\)</span></td>
+<td>Lognormal, Pareto</td>
+</tr>
+<tr class="odd">
+<td>Long-tailed</td>
+<td><span class="math inline">\(\bar F(x+y)/\bar F(x)\to1\)</span></td>
+<td>Pareto, Lognormal</td>
+</tr>
+<tr class="even">
+<td>Subexponential</td>
+<td><span class="math inline">\(\overline{F^{*2}}(x)/\bar F(x)\to2\)</span></td>
+<td>Pareto, Lognormal</td>
+</tr>
+<tr class="odd">
+<td>Regularly varying</td>
+<td><span class="math inline">\(\bar F(tx)/\bar F(x)\to t^{-\alpha}\)</span></td>
+<td>Pareto, Student-t</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">5. Conclusion</h2>
+<p>Tail behavior determines how extreme events arise.</p>
+<ul>
+<li>In <strong>light-tailed environments</strong>, extreme outcomes result from a <em>conspiracy of many moderate deviations</em>.</li>
+<li>In <strong>subexponential environments</strong>, extremes are dominated by a <em>single big jump</em>.</li>
+</ul>
+<p>Understanding which regime a model belongs to is crucial for applications ranging from risk management to econometric modeling of financial volatility.</p>
 
 
+</section>
 
 </main> <!-- /main -->
-<script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBsZWFybmluZ19yYXRlID0gSW5wdXRzLnJhbmdlKFswLjAwMDEsIDAuMDVdLCB7c3RlcDogMC4wMDA1LCB2YWx1ZTogMC4wMDEsIGxhYmVsOiBcImxlYXJuaW5nIHJhdGVcIn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcIkdvb2QgRGF5IFJlYWRlciHwn6WwIFNlbGVjdCB5b3VyIGxlYXJuaW5nIHJhdGUgaGVyZfCfkYZcIlxuXG54ID0gMTA7XG55X3RydWUgPSAxMDA7XG53MCA9IDg7XG5cbncgPSB3MDtcblxub3V0cHV0cyA9IHtcbiAgbGV0IHcgPSB3MDtcbiAgbGV0IHJlc3VsdHMgPSBbXTtcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCA1OyBpKyspIHtcbiAgICBsZXQgeV9wcmVkID0gdyAqIHg7XG4gICAgbGV0IGdyYWRpZW50ID0gLTIgKiB4ICogKHlfdHJ1ZSAtIHlfcHJlZCk7XG4gICAgdyA9IHcgLSBsZWFybmluZ19yYXRlICogZ3JhZGllbnQ7XG4gICAgcmVzdWx0cy5wdXNoKGBpdGVyYXRpb24gJHtpKzF9OiBjdXJyZW50IHByZWRpY3Rpb24gJHt5X3ByZWQudG9GaXhlZCgyKX0sIG5leHQgdyAke3cudG9GaXhlZCgyKX1gKTtcbiAgfVxuICByZXR1cm4gcmVzdWx0cztcbn1cblxuaHRtbGA8dWw+JHtvdXRwdXRzLm1hcChpdGVtID0+IGh0bWxgPGxpPiR7aXRlbX08L2xpPmApfTwvdWw+YFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdsZWFybmluZ19yYXRlJykifV19
-</script>
-<script type="module">
-if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../../posts/Neural_Network";
-window._ojs.paths.runtimeToRoot = "../..";
-window._ojs.paths.docToRoot = "../..";
-window._ojs.selfContained = false;
-window._ojs.runtime.interpretFromScriptTags();
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

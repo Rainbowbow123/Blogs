@@ -1,0 +1,169 @@
+---
+title: "A Guide to Distinguishing Tail Classes: Single Big Jumps"
+date: 2026-03-08
+author: "Yanhong Wan"
+categories: [Econometrics, Extreme Value Theory]
+image: "tail.png"
+format:
+  html:
+    toc: true
+    mathjax: true
+---
+
+## 1. Does the MGF Exist?
+
+A fundamental distinction in probability theory and econometrics is whether a distribution possesses a **moment generating function (MGF)**.
+
+Let
+
+$$
+M_X(t) = E[e^{tX}]
+$$
+
+denote the MGF of a random variable $X$.
+
+A distribution $F$ is called **heavy-tailed** if
+
+$$
+M_X(t) = \infty, \qquad \forall t > 0
+$$
+
+In contrast, if there exists some $t>0$ such that
+
+$$
+M_X(t) < \infty,
+$$
+
+the distribution is said to be **light-tailed**.
+
+This criterion acts as a natural “death line”: once the MGF ceases to exist, classical exponential large-deviation tools break down, and extreme outcomes become fundamentally more likely.
+
+---
+
+## 2. The Hierarchy of Heavy Tails
+
+Heavy-tailed distributions themselves form a structured hierarchy.  
+A commonly used nesting is
+
+$$
+\text{Regularly Varying}
+\subset
+\text{Subexponential}
+\subset
+\text{Long-tailed}
+\subset
+\text{Heavy-tailed}.
+$$
+
+Each step corresponds to progressively weaker assumptions about how slowly the tail decays.
+
+---
+
+### 2.1 Long-tailed distributions
+
+A distribution belongs to the **long-tailed class** if
+
+$$
+\frac{\bar F(x+y)}{\bar F(x)} \to 1
+\quad \text{as } x \to \infty
+$$
+
+for every fixed $y$, where
+
+$$
+\bar F(x) = P(X>x)
+$$
+
+is the survival function.
+
+Intuitively, adding a fixed constant $y$ barely changes the tail probability when $x$ is large.
+
+---
+
+### 2.2 Subexponential distributions and the “Single Big Jump”
+
+A central subclass of heavy tails is the **subexponential class**, defined by
+
+$$
+\overline{F^{*2}}(x) \sim 2\bar F(x),
+\quad x \to \infty.
+$$
+
+Equivalently,
+
+$$
+P(X_1 + X_2 > x) \sim 2P(X > x)
+$$
+
+for independent copies $X_1, X_2$.
+
+This property leads to the **Single Big Jump Principle**:
+
+> When a sum of subexponential variables becomes extremely large, it is typically caused by **one extreme observation**, rather than by the accumulation of many moderate values.
+
+---
+
+### 2.3 Regular variation (power-law tails)
+
+The most widely studied heavy tails are **regularly varying tails**, characterized by
+
+$$
+\frac{\bar F(tx)}{\bar F(x)} \to t^{-\alpha},
+\quad t>0.
+$$
+
+Equivalently,
+
+$$
+\bar F(x) = x^{-\alpha} L(x),
+$$
+
+where $L(x)$ is a **slowly varying function**.
+
+Regular variation provides a tractable mathematical structure and plays a central role in extreme value theory and financial tail modeling.
+
+---
+
+## 3. Light Tails: The “Conspiracy of Smalls”
+
+Light-tailed distributions behave very differently from heavy-tailed ones.
+
+For light tails, the probability of producing one extremely large observation is exponentially small. As a result, extreme sums typically arise through the **combined effect of multiple moderately large values**, rather than a single outlier.
+
+For example, suppose
+
+$$
+f(x) \propto e^{-x^2}.
+$$
+
+To produce a sum of $10$:
+
+- **Single jump:** $(10 + 0)$ gives probability $\propto e^{-100}$
+- **Two moderate values:** $(5 + 5)$ gives probability $\propto e^{-50}$
+
+Since $e^{-50} \gg e^{-100}$, the second scenario dominates.
+
+This phenomenon explains why Gaussian-type distributions do **not** satisfy the subexponential property.
+
+---
+
+## 4. Summary of Tail Classes
+
+| Class | Mathematical Criterion | Typical Examples |
+|------|----------------------|----------------|
+| Light-tailed | $M_X(t)<\infty$ for some $t>0$ | Normal, Exponential |
+| Heavy-tailed | $M_X(t)=\infty$ for all $t>0$ | Lognormal, Pareto |
+| Long-tailed | $\bar F(x+y)/\bar F(x)\to1$ | Pareto, Lognormal |
+| Subexponential | $\overline{F^{*2}}(x)/\bar F(x)\to2$ | Pareto, Lognormal |
+| Regularly varying | $\bar F(tx)/\bar F(x)\to t^{-\alpha}$ | Pareto, Student-t |
+
+---
+
+## 5. Conclusion
+
+Tail behavior determines how extreme events arise.
+
+- In **light-tailed environments**, extreme outcomes result from a *conspiracy of many moderate deviations*.
+- In **subexponential environments**, extremes are dominated by a *single big jump*.
+
+Understanding which regime a model belongs to is crucial for applications ranging from risk management to econometric modeling of financial volatility.
