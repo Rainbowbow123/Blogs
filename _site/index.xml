@@ -10,7 +10,30 @@
 <atom:link href="https://rainbowbow123.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>Rainbow’s Storage</description>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Sat, 07 Mar 2026 13:00:00 GMT</lastBuildDate>
+<lastBuildDate>Thu, 02 Apr 2026 13:00:00 GMT</lastBuildDate>
+<item>
+  <title>Definitions from Hamilton Chapter3</title>
+  <dc:creator>Yanhong Wan</dc:creator>
+  <link>https://rainbowbow123.github.io/posts/Ergodicity_vs_Stationarity/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Consider a time series denoted as <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5C%7D_%7Bt=-%5Cinfty%7D%5E%7B%5Cinfty%7D"> that covers infinite time periods. An observed sequence <img src="https://latex.codecogs.com/png.latex?%5C%7By_t%5C%7D_%7Bt=-%5Cinfty%7D%5E%7B%5Cinfty%7D"> is <strong>one realization</strong> of the underlying stochastic process. In the finite case, the sequence <img src="https://latex.codecogs.com/png.latex?y_%7B1:T%7D"> is one realization of the joint distribution of <img src="https://latex.codecogs.com/png.latex?Y_%7B1:T%7D">. If we were to sample <img src="https://latex.codecogs.com/png.latex?n"> independent paths of <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5C%7D_%7Bt=-%5Cinfty%7D%5E%7B%5Cinfty%7D">, the collection of random variables <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5E%7B(1)%7D,%20Y_t%5E%7B(2)%7D,%20%5Cdots,%20Y_t%5E%7B(n)%7D%5C%7D"> at a specific time <img src="https://latex.codecogs.com/png.latex?t"> would constitute an i.i.d. random sample from the <strong>marginal distribution</strong> of <img src="https://latex.codecogs.com/png.latex?Y_t">.</p>
+<p>To analyze if the time series is stationary, we look at the moments of <img src="https://latex.codecogs.com/png.latex?Y_t">. If <img src="https://latex.codecogs.com/png.latex?%5Cmathbf%7BE%7D%5BY_t%5D%20=%20%5Cmu"> and <img src="https://latex.codecogs.com/png.latex?%5Cgamma_j%20:=%20%5Ctext%7BCov%7D(Y_t,%20Y_%7Bt-j%7D)"> do not depend on time <img src="https://latex.codecogs.com/png.latex?t">, the process is said to be covariance-stationary (weakly-stationary).</p>
+<p>However, covariance stationarity does not guarantee ergodicity for the mean, nor ergodicity for the distribution. A process is said to be <strong>ergodic for the mean</strong> if its time average converges in probability to the ensemble mean: <img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7B1%7D%7BT%7D%20%5Csum_%7Bt=1%7D%5E%7BT%7D%20Y_t%20%5Cxrightarrow%7Bp%7D%20%5Cmathbf%7BE%7D%5BY_t%5D.%0A"> A sufficient condition for this is <img src="https://latex.codecogs.com/png.latex?%5Csum_%7Bj=0%7D%5E%7B%5Cinfty%7D%20%7C%5Cgamma_j%7C%20%3C%20%5Cinfty">. Furthermore, the process is <strong>ergodic for the autocovariance</strong> if: <img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7B1%7D%7BT-j%7D%20%5Csum_%7Bt=j+1%7D%5E%7BT%7D%20(Y_t%20-%20%5Cmu)(Y_%7Bt-j%7D%20-%20%5Cmu)%20%5Cxrightarrow%7Bp%7D%20%5Cgamma_j%20%5Cquad%20%5Ctext%7Bfor%20all%20%7D%20j.%0A"></p>
+<p>To understand: Stationarity ensures that within one realization of <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5C%7D_%7B-%5Cinfty%7D%5E%7B%5Cinfty%7D">, the marginal distribution for each random variable does not change with time; Ergodicity, however, ensures that for any realization of the sequence <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5C%7D_%7B-%5Cinfty%7D%5E%7B%5Cinfty%7D">, the empirical distribution converges to the <strong>same</strong> stationary distribution.</p>
+
+
+
+ ]]></description>
+  <category>Econometrics</category>
+  <category>Time Series</category>
+  <guid>https://rainbowbow123.github.io/posts/Ergodicity_vs_Stationarity/</guid>
+  <pubDate>Thu, 02 Apr 2026 13:00:00 GMT</pubDate>
+</item>
 <item>
   <title>A Guide to Distinguishing Tail Classes: Single Big Jumps</title>
   <dc:creator>Yanhong Wan</dc:creator>
@@ -472,9 +495,7 @@ font-style: inherit;">&lt;/ul&gt;`</span></span></code></pre></div></div>
 <p>Forward:</p>
 <p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Baligned%7D%0Az_%7B1,i%7D%20&amp;=%20W_1%20x_i%20+%20b_1,%20%5C%5C%0Ah_%7B1,i%7D%20&amp;=%20%5Cmathrm%7BReLU%7D(z_%7B1,i%7D),%20%5C%5C%0Az_%7B2,i%7D%20&amp;=%20W_2%20h_%7B1,i%7D%20+%20b_2,%20%5C%5C%0Ah_%7B2,i%7D%20&amp;=%20%5Cmathrm%7BReLU%7D(z_%7B2,i%7D),%20%5C%5C%0A%5Chat%7By%7D_i%20&amp;=%20W_3%20h_%7B2,i%7D%20+%20b_3.%0A%5Cend%7Baligned%7D"></p>
 <p>By the chain rule, backpropagation gives: <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B%5Cpartial%20L%7D%7B%5Cpartial%20W_1%7D%0A=%0A%5Cfrac%7B%5Cpartial%20L%7D%7B%5Cpartial%20%5Chat%20y%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20%5Chat%20y%7D%7B%5Cpartial%20h_2%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20h_2%7D%7B%5Cpartial%20z_2%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20z_2%7D%7B%5Cpartial%20h_1%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20h_1%7D%7B%5Cpartial%20z_1%7D%0A%5Ccdot%0A%5Cfrac%7B%5Cpartial%20z_1%7D%7B%5Cpartial%20W_1%7D.">The goal is still to minimize the MSE, <img src="https://latex.codecogs.com/png.latex?L%20=%20%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi=1%7D%5En%20(%5Chat%20y_i%20-%20y_i)%5E2">. For this network, the loss is differentiable with respect to all parameters, so gradients can be written in closed form using the chain rule. Specifically, for ReLu, the derivative is defined in a piecewise manner,</p>
-$ (z) =
-<img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Bcases%7D%0A1,%20&amp;%20z%20%3E%200,%20%5C%5C%0A0,%20&amp;%20z%20%3C%200,%0A%5Cend%7Bcases%7D">
-<p>$</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7Bd%7D%7Bdz%7D%5Cmathrm%7BReLU%7D(z)%20=%0A%5Cbegin%7Bcases%7D%0A1,%20&amp;%20z%20%3E%200,%20%5C%5C%0A0,%20&amp;%20z%20%3C%200,%0A%5Cend%7Bcases%7D%0A"></p>
 <p>and a subgradient at ( z=0 ) is typically chosen by convention. This leads to the indicator term ( (z&gt;0) ) appearing in the gradients.</p>
 <p>We analytically write out the gradients for all parameters below.</p>
 <p><img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B%5Cpartial%20L%7D%7B%5Cpartial%20W_3%7D%0A=%0A%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi=1%7D%5En%20(%5Chat%20y_i%20-%20y_i)%5C,%20h_%7B2,i%7D%5ET">,</p>
