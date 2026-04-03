@@ -9,7 +9,7 @@ format:
     mathjax: true
 ---
 
-Consider a time series denoted as $\{Y_t\}_{t=-\infty}^{\infty}$ that covers infinite time periods. An observed sequence $\{y_t\}_{t=-\infty}^{\infty}$ is **one realization** of the underlying stochastic process. In the finite case, the sequence $y_{1:T}$ is one realization of the joint distribution of $Y_{1:T}$. If we were to sample $n$ independent paths of $\{Y_t\}_{t=-\infty}^{\infty}$, the collection of random variables $\{Y_t^{(1)}, Y_t^{(2)}, \dots, Y_t^{(n)}\}$ at a specific time $t$ would constitute an i.i.d. random sample from the **marginal distribution** of $Y_t$.
+Consider a time series denoted as $\{Y_t\}_{t=-\infty}^{\infty}$. An observed sequence $\{y_t\}_{t=-\infty}^{\infty}$ is **one realization** of the underlying stochastic process. In the finite case, the sequence $y_{1:T}$ is one realization of the joint distribution of $Y_{1:T}$. If we were to sample $n$ independent paths of $\{Y_t\}_{t=-\infty}^{\infty}$, the collection of random variables $\{Y_t^{(1)}, Y_t^{(2)}, \dots, Y_t^{(n)}\}$ at a specific time $t$ would constitute an i.i.d. random sample from the **marginal distribution** of $Y_t$.
 
 To analyze if the time series is stationary, we look at the moments of $Y_t$. If $\mathbf{E}[Y_t] = \mu$ and $\gamma_j := \text{Cov}(Y_t, Y_{t-j})$ do not depend on time $t$, the process is said to be covariance-stationary (weakly-stationary).
 
@@ -23,4 +23,4 @@ $$
 $$
 
 To understand: 
-Stationarity ensures that within one realization of $\{Y_t\}_{-\infty}^{\infty}$, the marginal distribution for each random variable does not change with time; Ergodicity, however, ensures that for any realization of the sequence $\{Y_t\}_{-\infty}^{\infty}$, the empirical distribution converges to the **same** stationary distribution.
+Stationarity ensures that within one realization of $\{Y_t\}_{t=-\infty}^{\infty}$, the marginal distribution for each random variable does not change with time; Ergodicity, however, ensures that for any realization of the sequence $\{Y_t\}_{t=-\infty}^{\infty}$, the empirical distribution converges to the **same** stationary distribution.
