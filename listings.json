@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Ergodicity_vs_Stationarity/index.html",
       "/posts/tail_behavior/index.html",
       "/posts/Neural_Network/index.html",
       "/posts/Likelihood_shape/index.html"

@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rainbowbow123.github.io/about.html</loc>
-    <lastmod>2026-01-26T06:00:50.376Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rainbowbow123.github.io/posts/Likelihood_shape/index.html</loc>
-    <lastmod>2026-01-26T04:52:13.460Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rainbowbow123.github.io/posts/Neural_Network/index.html</loc>
-    <lastmod>2026-02-04T13:05:25.905Z</lastmod>
-  </url>
-  <url>
     <loc>https://rainbowbow123.github.io/posts/tail_behavior/index.html</loc>
-    <lastmod>2026-03-08T01:59:22.946Z</lastmod>
+    <lastmod>2026-04-03T08:20:14.149Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rainbowbow123.github.io/posts/Ergodicity_vs_Stationarity/index.html</loc>
+    <lastmod>2026-04-03T08:20:14.136Z</lastmod>
   </url>
   <url>
     <loc>https://rainbowbow123.github.io/index.html</loc>
-    <lastmod>2026-01-25T13:22:46.024Z</lastmod>
+    <lastmod>2026-04-03T08:20:14.135Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rainbowbow123.github.io/about.html</loc>
+    <lastmod>2026-04-03T08:20:14.135Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rainbowbow123.github.io/posts/Likelihood_shape/index.html</loc>
+    <lastmod>2026-04-03T08:20:14.137Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rainbowbow123.github.io/posts/Neural_Network/index.html</loc>
+    <lastmod>2026-04-03T08:20:14.148Z</lastmod>
   </url>
 </urlset>
