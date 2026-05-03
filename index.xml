@@ -9,8 +9,8 @@
 <link>https://rainbowbow123.github.io/</link>
 <atom:link href="https://rainbowbow123.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>Rainbow’s Storage</description>
-<generator>quarto-1.8.27</generator>
-<lastBuildDate>Sat, 02 May 2026 14:00:00 GMT</lastBuildDate>
+<generator>quarto-1.9.37</generator>
+<lastBuildDate>Sun, 03 May 2026 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Local Gaussian Approximation of the Posterior</title>
   <dc:creator>Yanhong Wan</dc:creator>
@@ -51,7 +51,7 @@
 
  ]]></description>
   <guid>https://rainbowbow123.github.io/posts/local_gaussian/local_gaussian_approximation.html</guid>
-  <pubDate>Sat, 02 May 2026 14:00:00 GMT</pubDate>
+  <pubDate>Sun, 03 May 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Definitions from Hamilton Chapter3</title>
@@ -74,7 +74,7 @@
   <category>Econometrics</category>
   <category>Time Series</category>
   <guid>https://rainbowbow123.github.io/posts/Ergodicity_vs_Stationarity/</guid>
-  <pubDate>Thu, 02 Apr 2026 13:00:00 GMT</pubDate>
+  <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>A Guide to Distinguishing Tail Classes: Single Big Jumps</title>
@@ -217,7 +217,7 @@ A commonly used nesting is</p>
   <category>Econometrics</category>
   <category>Extreme Value Theory</category>
   <guid>https://rainbowbow123.github.io/posts/tail_behavior/</guid>
-  <pubDate>Sat, 07 Mar 2026 13:00:00 GMT</pubDate>
+  <pubDate>Sun, 08 Mar 2026 00:00:00 GMT</pubDate>
   <media:content url="https://rainbowbow123.github.io/posts/tail_behavior/tail.png" medium="image" type="image/png" height="113" width="144"/>
 </item>
 <item>
@@ -554,7 +554,7 @@ font-style: inherit;">&lt;/ul&gt;`</span></span></code></pre></div></div>
   <category>Optimization</category>
   <category>Machine Learning</category>
   <guid>https://rainbowbow123.github.io/posts/Neural_Network/</guid>
-  <pubDate>Tue, 03 Feb 2026 13:00:00 GMT</pubDate>
+  <pubDate>Wed, 04 Feb 2026 00:00:00 GMT</pubDate>
   <media:content url="https://rainbowbow123.github.io/posts/Neural_Network/figures/neural_network.png" medium="image" type="image/png" height="96" width="144"/>
 </item>
 <item>
@@ -598,7 +598,7 @@ font-style: inherit;">&lt;/ul&gt;`</span></span></code></pre></div></div>
   <category>Econometrics</category>
   <category>Intuition</category>
   <guid>https://rainbowbow123.github.io/posts/Likelihood_shape/</guid>
-  <pubDate>Sat, 24 Jan 2026 13:00:00 GMT</pubDate>
+  <pubDate>Sun, 25 Jan 2026 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
