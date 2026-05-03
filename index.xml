@@ -9,8 +9,50 @@
 <link>https://rainbowbow123.github.io/</link>
 <atom:link href="https://rainbowbow123.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>Rainbow’s Storage</description>
-<generator>quarto-1.9.36</generator>
-<lastBuildDate>Fri, 03 Apr 2026 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.8.27</generator>
+<lastBuildDate>Sat, 02 May 2026 14:00:00 GMT</lastBuildDate>
+<item>
+  <title>Local Gaussian Approximation of the Posterior</title>
+  <dc:creator>Yanhong Wan</dc:creator>
+  <link>https://rainbowbow123.github.io/posts/local_gaussian/local_gaussian_approximation.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="local-gaussian-approximation-of-the-posterior" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="local-gaussian-approximation-of-the-posterior"><span class="header-section-number">1</span> Local Gaussian Approximation of the Posterior</h2>
+<p>Consider the log posterior density of the latent state: <img src="https://latex.codecogs.com/png.latex?%0A%5Clog%20p(h%20%5Cmid%20Y,%20%5Ctheta)%20:=%20%5Cell(h).%0A"></p>
+<p>To approximate the <em>local shape</em> of this function, take a second-order Taylor expansion around some point <img src="https://latex.codecogs.com/png.latex?h_0">:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cell(h)%20%5Capprox%20%5Cell(h_0)%20+%20%5Cnabla%20%5Cell(h_0)'(h%20-%20h_0)%20+%20%5Ctfrac%7B1%7D%7B2%7D(h%20-%20h_0)'%20%5Cnabla%5E2%20%5Cell(h_0)(h%20-%20h_0).%0A"></p>
+<p>Now choose <img src="https://latex.codecogs.com/png.latex?h_0%20=%20%5Chat%7Bh%7D">, where <img src="https://latex.codecogs.com/png.latex?%5Chat%7Bh%7D"> is the mode of <img src="https://latex.codecogs.com/png.latex?%5Cell(h)">. By definition: <img src="https://latex.codecogs.com/png.latex?%0A%5Cnabla%20%5Cell(%5Chat%7Bh%7D)%20=%200,%0A"> so the linear term vanishes.</p>
+<p>We are left with a quadratic approximation: <img src="https://latex.codecogs.com/png.latex?%0A%5Cell(h)%20%5Capprox%20%5Cell(%5Chat%7Bh%7D)%20+%20%5Ctfrac%7B1%7D%7B2%7D(h%20-%20%5Chat%7Bh%7D)'%20%5Cnabla%5E2%20%5Cell(%5Chat%7Bh%7D)(h%20-%20%5Chat%7Bh%7D).%0A"></p>
+<p>Since <img src="https://latex.codecogs.com/png.latex?%5Chat%20h"> is a local mode, the Hessian is negative definite in a neighborhood of <img src="https://latex.codecogs.com/png.latex?%5Chat%20h">. Furthermore, rewrite the approximation as <img src="https://latex.codecogs.com/png.latex?%0A%5Cell(h)%20%5Capprox%20%5Cell(%5Chat%7Bh%7D)%20-%20%5Ctfrac%7B1%7D%7B2%7D(h%20-%20%5Chat%7Bh%7D)'%20%5Cbigl%5B-%5Cnabla%5E2%20%5Cell(%5Chat%7Bh%7D)%5Cbigr%5D(h%20-%20%5Chat%7Bh%7D).%0A"></p>
+<p>Now, exponentiating both sides, we obtain the local kernel <img src="https://latex.codecogs.com/png.latex?%0Ap(h%20%5Cmid%20Y,%20%5Ctheta)%20%5Cpropto%0A%5Cexp%5Cleft(%0A-%5Ctfrac%7B1%7D%7B2%7D(h%20-%20%5Chat%7Bh%7D)'%20%5Cbigl%5B-%5Cnabla%5E2%20%5Cell(%5Chat%7Bh%7D)%5Cbigr%5D(h%20-%20%5Chat%7Bh%7D)%0A%5Cright).%0A"></p>
+<p>This has the form of a Gaussian kernel. Defining <img src="https://latex.codecogs.com/png.latex?%0A%5CSigma%20=%20%5Cbigl%5B-%5Cnabla%5E2%20%5Cell(%5Chat%7Bh%7D)%5Cbigr%5D%5E%7B-1%7D,%0A"> we have the local Gaussian approximation to the posterior: <img src="https://latex.codecogs.com/png.latex?%0Ap(h%20%5Cmid%20Y,%20%5Ctheta)%20%5Capprox%20%5Cmathcal%7BN%7D(%5Chat%7Bh%7D,%20%5CSigma).%0A"></p>
+<hr>
+</section>
+<section id="interpretation-curvature-and-uncertainty" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="interpretation-curvature-and-uncertainty"><span class="header-section-number">2</span> Interpretation: Curvature and Uncertainty</h2>
+<ul>
+<li>The mode <img src="https://latex.codecogs.com/png.latex?%5Chat%7Bh%7D"> is the most likely latent state given <img src="https://latex.codecogs.com/png.latex?Y"> and <img src="https://latex.codecogs.com/png.latex?%5Ctheta">.</li>
+<li>The negative Hessian <img src="https://latex.codecogs.com/png.latex?-%5Cnabla%5E2%20%5Cell(%5Chat%7Bh%7D)"> captures the local curvature of the log posterior near the mode.</li>
+<li>If the curvature is sharper in some direction, then the corresponding eigenvalue of the negative Hessian is larger, which implies a smaller variance in that direction.</li>
+</ul>
+<hr>
+</section>
+<section id="some-potential-limitations" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="some-potential-limitations"><span class="header-section-number">3</span> Some Potential Limitations</h2>
+<p>This approximation only captures <strong>local geometry</strong>: it ignores skewness and heavy tails, and may fail when the posterior is multimodal.</p>
+
+
+</section>
+
+ ]]></description>
+  <guid>https://rainbowbow123.github.io/posts/local_gaussian/local_gaussian_approximation.html</guid>
+  <pubDate>Sat, 02 May 2026 14:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Definitions from Hamilton Chapter3</title>
   <dc:creator>Yanhong Wan</dc:creator>
@@ -32,7 +74,7 @@
   <category>Econometrics</category>
   <category>Time Series</category>
   <guid>https://rainbowbow123.github.io/posts/Ergodicity_vs_Stationarity/</guid>
-  <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
+  <pubDate>Thu, 02 Apr 2026 13:00:00 GMT</pubDate>
 </item>
 <item>
   <title>A Guide to Distinguishing Tail Classes: Single Big Jumps</title>
@@ -175,7 +217,7 @@ A commonly used nesting is</p>
   <category>Econometrics</category>
   <category>Extreme Value Theory</category>
   <guid>https://rainbowbow123.github.io/posts/tail_behavior/</guid>
-  <pubDate>Sun, 08 Mar 2026 00:00:00 GMT</pubDate>
+  <pubDate>Sat, 07 Mar 2026 13:00:00 GMT</pubDate>
   <media:content url="https://rainbowbow123.github.io/posts/tail_behavior/tail.png" medium="image" type="image/png" height="113" width="144"/>
 </item>
 <item>
@@ -512,7 +554,7 @@ font-style: inherit;">&lt;/ul&gt;`</span></span></code></pre></div></div>
   <category>Optimization</category>
   <category>Machine Learning</category>
   <guid>https://rainbowbow123.github.io/posts/Neural_Network/</guid>
-  <pubDate>Wed, 04 Feb 2026 00:00:00 GMT</pubDate>
+  <pubDate>Tue, 03 Feb 2026 13:00:00 GMT</pubDate>
   <media:content url="https://rainbowbow123.github.io/posts/Neural_Network/figures/neural_network.png" medium="image" type="image/png" height="96" width="144"/>
 </item>
 <item>
@@ -556,7 +598,7 @@ font-style: inherit;">&lt;/ul&gt;`</span></span></code></pre></div></div>
   <category>Econometrics</category>
   <category>Intuition</category>
   <guid>https://rainbowbow123.github.io/posts/Likelihood_shape/</guid>
-  <pubDate>Sun, 25 Jan 2026 00:00:00 GMT</pubDate>
+  <pubDate>Sat, 24 Jan 2026 13:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

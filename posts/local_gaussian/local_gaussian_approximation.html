@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Yanhong Wan">
-<meta name="dcterms.date" content="2026-02-04">
+<meta name="dcterms.date" content="2026-05-03">
 
-<title>Introduction to Machine Learning: Gradient Descent and Neural Networks – Yanhong Wan</title>
+<title>Local Gaussian Approximation of the Posterior – Yanhong Wan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -105,8 +70,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
-<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -141,7 +104,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -182,12 +145,8 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Introduction to Machine Learning: Gradient Descent and Neural Networks</h1>
-                                <div class="quarto-categories">
-                <div class="quarto-category">Optimization</div>
-                <div class="quarto-category">Machine Learning</div>
-              </div>
-                  </div>
+      <h1 class="title">Local Gaussian Approximation of the Posterior</h1>
+                      </div>
   </div>
     
   
@@ -203,7 +162,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 4, 2026</p>
+        <p class="date">May 3, 2026</p>
       </div>
     </div>
     
@@ -214,7 +173,17 @@ window.Quarto = {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#local-gaussian-approximation-of-the-posterior" id="toc-local-gaussian-approximation-of-the-posterior" class="nav-link active" data-scroll-target="#local-gaussian-approximation-of-the-posterior"><span class="header-section-number">1</span> Local Gaussian Approximation of the Posterior</a></li>
+  <li><a href="#interpretation-curvature-and-uncertainty" id="toc-interpretation-curvature-and-uncertainty" class="nav-link" data-scroll-target="#interpretation-curvature-and-uncertainty"><span class="header-section-number">2</span> Interpretation: Curvature and Uncertainty</a></li>
+  <li><a href="#some-potential-limitations" id="toc-some-potential-limitations" class="nav-link" data-scroll-target="#some-potential-limitations"><span class="header-section-number">3</span> Some Potential Limitations</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -222,186 +191,54 @@ window.Quarto = {
 
 
 
-<p>To understand machine learning, one must have a basic understanding of optimization. In a learning problem, a loss function is specified to evaluate estimation accuracy, and the goal of optimization is to minimize this loss. Specifically, a loss function assigns a scalar value to model predictions as a quantitative measure of estimation error. Common examples include:</p>
-<p>Mean Squared Error (MSE): <span class="math display">\[L_{\text{MSE}} = \frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)^2\]</span></p>
-<p>Mean Absolute Error (MAE): <span class="math display">\[L_{\text{MAE}} = \frac{1}{n}\sum_{i=1}^n |\hat y_i - y_i\]</span></p>
-<p>For binary classification, cross-entropy is commonly used: <span class="math display">\[L_{\text{CE}} = -\frac{1}{n}\sum_{i=1}^n \left[y_i\log \hat p_i + (1-y_i)\log(1-\hat p_i)\right]\]</span></p>
-<p>Below is an example of the loss function of MSE.</p>
-<pre><code>import numpy as np 
-
-y_true = np.array([10,20,30])
-y_pred = np.array([12,18,27])
-
-loss = np.mean((y_true-y_pred)**2 )
-print(loss)</code></pre>
-<p>Once a loss function is specified, the next question is how to minimize it. This is handled by optimization algorithms. We introduce the most fundamental algorithm - gradient descent here.</p>
-<p>For a differentiable function, the gradient points in the direction of steepest increase. Minimization therefore proceeds by updating parameters in the opposite direction of the gradient. The step size of each update is controlled by the learning rate, whereas an excessively large learning rate may cause overshooting and divergence, and an excessively small learning rate leads to slow convergence.</p>
-<p>Below is an example of gradient descent for a linear regression <span class="math inline">\(\hat y = w x\)</span> with loss <span class="math inline">\(L = (y_{\text{true}} - wx)^2\)</span>. The gradient with respect to <span class="math inline">\(w\)</span> is <span class="math inline">\({\partial L}/{\partial w} = -2x (y_{\text{true}} - wx)\)</span>. Change the learning rate in the code below to see how it affects the optimization process. (It is generally good around 0.004. I have to change from Python to ObservableJS to make it interactive here.)</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="46" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 45;"><span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>viewof learning_rate <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.0001</span><span class="op">,</span> <span class="fl">0.05</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="fl">0.0005</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="fl">0.001</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"learning rate"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div id="ojs-cell-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="51" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 50;"><span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="st">"Good Day Reader!🥰 Select your learning rate here👆"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-1" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="53" data-source-offset="-55"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 52;"><span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>w0 <span class="op">=</span> <span class="dv">8</span><span class="op">;</span></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> w0<span class="op">;</span></span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>outputs <span class="op">=</span> {</span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> w <span class="op">=</span> w0<span class="op">;</span></span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> results <span class="op">=</span> []<span class="op">;</span></span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++</span>) {</span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> y_pred <span class="op">=</span> w <span class="op">*</span> x<span class="op">;</span></span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> gradient <span class="op">=</span> <span class="op">-</span><span class="dv">2</span> <span class="op">*</span> x <span class="op">*</span> (y_true <span class="op">-</span> y_pred)<span class="op">;</span></span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> w <span class="op">-</span> learning_rate <span class="op">*</span> gradient<span class="op">;</span></span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    results<span class="op">.</span><span class="fu">push</span>(<span class="vs">`iteration </span><span class="sc">${</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="vs">: current prediction </span><span class="sc">${</span>y_pred<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">, next w </span><span class="sc">${</span>w<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> results<span class="op">;</span></span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;ul&gt;</span><span class="sc">${</span>outputs<span class="op">.</span><span class="fu">map</span>(item <span class="kw">=&gt;</span> <span class="fu">html</span><span class="vs">`&lt;li&gt;</span><span class="sc">${</span>item<span class="sc">}</span><span class="vs">&lt;/li&gt;`</span>)<span class="sc">}</span><span class="vs">&lt;/ul&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-2" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-3" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-4" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-5" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-6" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-7" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-</div>
-<p>So far, the model is a si mple linear regression. Next, we upgrade this regression model to a neural network. A neural network contains an input layer, one or more hidden layers, and an output layer. Each layer applies a linear transformation followed by an activation function.</p>
-<p>For a generic layer,</p>
-<p><span class="math display">\[z = W x + b,\quad h = \phi(z)\]</span>,</p>
-<p>where <span class="math inline">\(\phi(\cdot)\)</span> denotes an activation function. Common choices include ReLU, sigmoid, and tanh. ReLU preserves positive inputs and truncates negative ones. Sigmoid and tanh map real-valued inputs into bounded intervals.</p>
-<p>ReLU: <span class="math inline">\(\phi(z) = \max(0, z)\)</span>. Sigmoid:<span class="math inline">\(\phi(z) = \frac{1}{1 + e^{-z}}\)</span>. Tanh:<span class="math inline">\(\phi(z) = \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}\)</span>. Softmax (for vector-valued input <span class="math inline">\(z\)</span>):<span class="math inline">\(\phi(z_j) = \frac{e^{z_j}}{\sum_k e^{z_k}}\)</span>.</p>
-<p>All these activation functions introduce nonlinearity。 Without activation functions, stacking multiple layers would still result in a linear model. Like in linear regression, we can also use gradient descent to optimize the parameters of a neural network. The gradients can be computed using backpropagation, which applies the chain rule of calculus to propagate gradients from the output layer back to the input layer. For example, we consider a neural network with 2 hidden layers. The input <span class="math inline">\(x\)</span> is transformed through the first hidden layer to produce <span class="math inline">\(h_1\)</span>, then through the second hidden layer to produce <span class="math inline">\(h_2\)</span>, and finally to the output <span class="math inline">\(y\)</span>.</p>
-<p>Forward:</p>
-<p><span class="math display">\[\begin{aligned}
-z_{1,i} &amp;= W_1 x_i + b_1, \\
-h_{1,i} &amp;= \mathrm{ReLU}(z_{1,i}), \\
-z_{2,i} &amp;= W_2 h_{1,i} + b_2, \\
-h_{2,i} &amp;= \mathrm{ReLU}(z_{2,i}), \\
-\hat{y}_i &amp;= W_3 h_{2,i} + b_3.
-\end{aligned}\]</span></p>
-<p>By the chain rule, backpropagation gives: <span class="math display">\[\frac{\partial L}{\partial W_1}
-=
-\frac{\partial L}{\partial \hat y}
-\cdot
-\frac{\partial \hat y}{\partial h_2}
-\cdot
-\frac{\partial h_2}{\partial z_2}
-\cdot
-\frac{\partial z_2}{\partial h_1}
-\cdot
-\frac{\partial h_1}{\partial z_1}
-\cdot
-\frac{\partial z_1}{\partial W_1}.\]</span>The goal is still to minimize the MSE, <span class="math inline">\(L = \frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)^2\)</span>. For this network, the loss is differentiable with respect to all parameters, so gradients can be written in closed form using the chain rule. Specifically, for ReLu, the derivative is defined in a piecewise manner,</p>
-<p><span class="math display">\[
-\frac{d}{dz}\mathrm{ReLU}(z) =
-\begin{cases}
-1, &amp; z &gt; 0, \\
-0, &amp; z &lt; 0,
-\end{cases}
+<section id="local-gaussian-approximation-of-the-posterior" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="local-gaussian-approximation-of-the-posterior"><span class="header-section-number">1</span> Local Gaussian Approximation of the Posterior</h2>
+<p>Consider the log posterior density of the latent state: <span class="math display">\[
+\log p(h \mid Y, \theta) := \ell(h).
 \]</span></p>
-<p>and a subgradient at ( z=0 ) is typically chosen by convention. This leads to the indicator term ( (z&gt;0) ) appearing in the gradients.</p>
-<p>We analytically write out the gradients for all parameters below.</p>
-<p><span class="math inline">\(\frac{\partial L}{\partial W_3}
-=
-\frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)\, h_{2,i}^T\)</span>,</p>
-<p><span class="math inline">\(\frac{\partial L}{\partial b_3}
-=
-\frac{1}{n}\sum_{i=1}^n (\hat y_i - y_i)\)</span>,</p>
-<p><span class="math inline">\(\frac{\partial L}{\partial W_2}
-=
-\frac{1}{n}\sum_{i=1}^n
-(\hat y_i - y_i)\,
-W_3\,
-\mathbf{1}(z_{2,i}&gt;0)\,
-h_{1,i}^T\)</span>,</p>
-<p><span class="math inline">\(\frac{\partial L}{\partial b_2}
-=
-\frac{1}{n}\sum_{i=1}^n
-(\hat y_i - y_i)\,
-W_3\,
-\mathbf{1}(z_{2,i}&gt;0)\)</span>,</p>
-<p><span class="math inline">\(\frac{\partial L}{\partial W_1}
-=
-\frac{1}{n}\sum_{i=1}^n
-(\hat y_i - y_i)\,
-W_3 W_2\,
-\mathbf{1}(z_{2,i}&gt;0)\,
-\mathbf{1}(z_{1,i}&gt;0)\,
-x_i^T\)</span>,</p>
-<p><span class="math inline">\(\frac{\partial L}{\partial b_1}
-=
-\frac{1}{n}\sum_{i=1}^n
-(\hat y_i - y_i)\,
-W_3 W_2\,
-\mathbf{1}(z_{2,i}&gt;0)\,
-\mathbf{1}(z_{1,i}&gt;0)\)</span>.</p>
-<p>In the next post, I will use these analytically derived gradients to perform optimization for this network in Python.</p>
+<p>To approximate the <em>local shape</em> of this function, take a second-order Taylor expansion around some point <span class="math inline">\(h_0\)</span>:</p>
+<p><span class="math display">\[
+\ell(h) \approx \ell(h_0) + \nabla \ell(h_0)'(h - h_0) + \tfrac{1}{2}(h - h_0)' \nabla^2 \ell(h_0)(h - h_0).
+\]</span></p>
+<p>Now choose <span class="math inline">\(h_0 = \hat{h}\)</span>, where <span class="math inline">\(\hat{h}\)</span> is the mode of <span class="math inline">\(\ell(h)\)</span>. By definition: <span class="math display">\[
+\nabla \ell(\hat{h}) = 0,
+\]</span> so the linear term vanishes.</p>
+<p>We are left with a quadratic approximation: <span class="math display">\[
+\ell(h) \approx \ell(\hat{h}) + \tfrac{1}{2}(h - \hat{h})' \nabla^2 \ell(\hat{h})(h - \hat{h}).
+\]</span></p>
+<p>Since <span class="math inline">\(\hat h\)</span> is a local mode, the Hessian is negative definite in a neighborhood of <span class="math inline">\(\hat h\)</span>. Furthermore, rewrite the approximation as <span class="math display">\[
+\ell(h) \approx \ell(\hat{h}) - \tfrac{1}{2}(h - \hat{h})' \bigl[-\nabla^2 \ell(\hat{h})\bigr](h - \hat{h}).
+\]</span></p>
+<p>Now, exponentiating both sides, we obtain the local kernel <span class="math display">\[
+p(h \mid Y, \theta) \propto
+\exp\left(
+-\tfrac{1}{2}(h - \hat{h})' \bigl[-\nabla^2 \ell(\hat{h})\bigr](h - \hat{h})
+\right).
+\]</span></p>
+<p>This has the form of a Gaussian kernel. Defining <span class="math display">\[
+\Sigma = \bigl[-\nabla^2 \ell(\hat{h})\bigr]^{-1},
+\]</span> we have the local Gaussian approximation to the posterior: <span class="math display">\[
+p(h \mid Y, \theta) \approx \mathcal{N}(\hat{h}, \Sigma).
+\]</span></p>
+<hr>
+</section>
+<section id="interpretation-curvature-and-uncertainty" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="interpretation-curvature-and-uncertainty"><span class="header-section-number">2</span> Interpretation: Curvature and Uncertainty</h2>
+<ul>
+<li>The mode <span class="math inline">\(\hat{h}\)</span> is the most likely latent state given <span class="math inline">\(Y\)</span> and <span class="math inline">\(\theta\)</span>.</li>
+<li>The negative Hessian <span class="math inline">\(-\nabla^2 \ell(\hat{h})\)</span> captures the local curvature of the log posterior near the mode.</li>
+<li>If the curvature is sharper in some direction, then the corresponding eigenvalue of the negative Hessian is larger, which implies a smaller variance in that direction.</li>
+</ul>
+<hr>
+</section>
+<section id="some-potential-limitations" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="some-potential-limitations"><span class="header-section-number">3</span> Some Potential Limitations</h2>
+<p>This approximation only captures <strong>local geometry</strong>: it ignores skewness and heavy tails, and may fail when the posterior is multimodal.</p>
 
 
+</section>
 
 </main> <!-- /main -->
-<script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBsZWFybmluZ19yYXRlID0gSW5wdXRzLnJhbmdlKFswLjAwMDEsIDAuMDVdLCB7c3RlcDogMC4wMDA1LCB2YWx1ZTogMC4wMDEsIGxhYmVsOiBcImxlYXJuaW5nIHJhdGVcIn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcIkdvb2QgRGF5IFJlYWRlciHwn6WwIFNlbGVjdCB5b3VyIGxlYXJuaW5nIHJhdGUgaGVyZfCfkYZcIlxuXG54ID0gMTA7XG55X3RydWUgPSAxMDA7XG53MCA9IDg7XG5cbncgPSB3MDtcblxub3V0cHV0cyA9IHtcbiAgbGV0IHcgPSB3MDtcbiAgbGV0IHJlc3VsdHMgPSBbXTtcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCA1OyBpKyspIHtcbiAgICBsZXQgeV9wcmVkID0gdyAqIHg7XG4gICAgbGV0IGdyYWRpZW50ID0gLTIgKiB4ICogKHlfdHJ1ZSAtIHlfcHJlZCk7XG4gICAgdyA9IHcgLSBsZWFybmluZ19yYXRlICogZ3JhZGllbnQ7XG4gICAgcmVzdWx0cy5wdXNoKGBpdGVyYXRpb24gJHtpKzF9OiBjdXJyZW50IHByZWRpY3Rpb24gJHt5X3ByZWQudG9GaXhlZCgyKX0sIG5leHQgdyAke3cudG9GaXhlZCgyKX1gKTtcbiAgfVxuICByZXR1cm4gcmVzdWx0cztcbn1cblxuaHRtbGA8dWw+JHtvdXRwdXRzLm1hcChpdGVtID0+IGh0bWxgPGxpPiR7aXRlbX08L2xpPmApfTwvdWw+YFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdsZWFybmluZ19yYXRlJykifV19
-</script>
-<script type="module">
-if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../../posts/Neural_Network";
-window._ojs.paths.runtimeToRoot = "../..";
-window._ojs.paths.docToRoot = "../..";
-window._ojs.selfContained = false;
-window._ojs.runtime.interpretFromScriptTags();
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

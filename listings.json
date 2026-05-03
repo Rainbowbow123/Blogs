@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/local_gaussian/local_gaussian_approximation.html",
       "/posts/Ergodicity_vs_Stationarity/index.html",
       "/posts/tail_behavior/index.html",
       "/posts/Neural_Network/index.html",
