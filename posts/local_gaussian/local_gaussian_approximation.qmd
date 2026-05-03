@@ -1,0 +1,76 @@
+---
+title: "Local Gaussian Approximation of the Posterior"
+author: "Yanhong Wan"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    theme: cosmo
+    code-fold: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Local Gaussian Approximation of the Posterior
+
+Consider the log posterior density of the latent state:
+$$
+\log p(h \mid Y, \theta) := \ell(h).
+$$
+
+To approximate the *local shape* of this function, take a second-order Taylor expansion around some point $h_0$:
+
+$$
+\ell(h) \approx \ell(h_0) + \nabla \ell(h_0)'(h - h_0) + \tfrac{1}{2}(h - h_0)' \nabla^2 \ell(h_0)(h - h_0).
+$$
+
+Now choose $h_0 = \hat{h}$, where $\hat{h}$ is the mode of $\ell(h)$. By definition:
+$$
+\nabla \ell(\hat{h}) = 0,
+$$
+so the linear term vanishes.
+
+We are left with a quadratic approximation:
+$$
+\ell(h) \approx \ell(\hat{h}) + \tfrac{1}{2}(h - \hat{h})' \nabla^2 \ell(\hat{h})(h - \hat{h}).
+$$
+
+Since $\hat h$ is a local mode, the Hessian is negative definite in a neighborhood of $\hat h$. Furthermore, rewrite the approximation as
+$$
+\ell(h) \approx \ell(\hat{h}) - \tfrac{1}{2}(h - \hat{h})' \bigl[-\nabla^2 \ell(\hat{h})\bigr](h - \hat{h}).
+$$
+
+Now, exponentiating both sides, we obtain the local kernel
+$$
+p(h \mid Y, \theta) \propto
+\exp\left(
+-\tfrac{1}{2}(h - \hat{h})' \bigl[-\nabla^2 \ell(\hat{h})\bigr](h - \hat{h})
+\right).
+$$
+
+This has the form of a Gaussian kernel. Defining
+$$
+\Sigma = \bigl[-\nabla^2 \ell(\hat{h})\bigr]^{-1},
+$$
+we have the local Gaussian approximation to the posterior:
+$$
+p(h \mid Y, \theta) \approx \mathcal{N}(\hat{h}, \Sigma).
+$$
+
+---
+
+## Interpretation: Curvature and Uncertainty
+
+- The mode $\hat{h}$ is the most likely latent state given $Y$ and $\theta$.
+- The negative Hessian $-\nabla^2 \ell(\hat{h})$ captures the local curvature of the log posterior near the mode.
+- If the curvature is sharper in some direction, then the corresponding eigenvalue of the negative Hessian is larger, which implies a smaller variance in that direction.
+
+---
+
+## Some Potential Limitations
+
+This approximation only captures **local geometry**: it ignores skewness and heavy tails, and may fail when the posterior is multimodal.

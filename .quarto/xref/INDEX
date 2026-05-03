@@ -31,5 +31,8 @@
   },
   "posts/Ergodicity_vs_Stationarity/index.qmd": {
     "index.html": "1ad1c8d2"
+  },
+  "posts/local_gaussian/local_gaussian_approximation.qmd": {
+    "local_gaussian_approximation.html": "21091d33"
   }
 }

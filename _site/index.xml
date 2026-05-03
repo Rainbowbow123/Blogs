@@ -10,9 +10,51 @@
 <atom:link href="https://rainbowbow123.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>Rainbow’s Storage</description>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Thu, 02 Apr 2026 13:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 02 May 2026 14:00:00 GMT</lastBuildDate>
 <item>
-  <title>Definitions from Hamilton Chapter3</title>
+  <title>Local Gaussian Approximation of the Posterior</title>
+  <dc:creator>Yanhong Wan</dc:creator>
+  <link>https://rainbowbow123.github.io/posts/local_gaussian/local_gaussian_approximation.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="local-gaussian-approximation-of-the-posterior" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="local-gaussian-approximation-of-the-posterior"><span class="header-section-number">1</span> Local Gaussian Approximation of the Posterior</h2>
+<p>Consider the log posterior density of the latent state: <img src="https://latex.codecogs.com/png.latex?%0A%5Clog%20p(h%20%5Cmid%20Y,%20%5Ctheta)%20:=%20%5Cell(h).%0A"></p>
+<p>To approximate the <em>local shape</em> of this function, take a second-order Taylor expansion around some point <img src="https://latex.codecogs.com/png.latex?h_0">:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cell(h)%20%5Capprox%20%5Cell(h_0)%20+%20%5Cnabla%20%5Cell(h_0)'(h%20-%20h_0)%20+%20%5Ctfrac%7B1%7D%7B2%7D(h%20-%20h_0)'%20%5Cnabla%5E2%20%5Cell(h_0)(h%20-%20h_0).%0A"></p>
+<p>Now choose <img src="https://latex.codecogs.com/png.latex?h_0%20=%20%5Chat%7Bh%7D">, where <img src="https://latex.codecogs.com/png.latex?%5Chat%7Bh%7D"> is the mode of <img src="https://latex.codecogs.com/png.latex?%5Cell(h)">. By definition: <img src="https://latex.codecogs.com/png.latex?%0A%5Cnabla%20%5Cell(%5Chat%7Bh%7D)%20=%200,%0A"> so the linear term vanishes.</p>
+<p>We are left with a quadratic approximation: <img src="https://latex.codecogs.com/png.latex?%0A%5Cell(h)%20%5Capprox%20%5Cell(%5Chat%7Bh%7D)%20+%20%5Ctfrac%7B1%7D%7B2%7D(h%20-%20%5Chat%7Bh%7D)'%20%5Cnabla%5E2%20%5Cell(%5Chat%7Bh%7D)(h%20-%20%5Chat%7Bh%7D).%0A"></p>
+<p>Since <img src="https://latex.codecogs.com/png.latex?%5Chat%20h"> is a local mode, the Hessian is negative definite in a neighborhood of <img src="https://latex.codecogs.com/png.latex?%5Chat%20h">. Furthermore, rewrite the approximation as <img src="https://latex.codecogs.com/png.latex?%0A%5Cell(h)%20%5Capprox%20%5Cell(%5Chat%7Bh%7D)%20-%20%5Ctfrac%7B1%7D%7B2%7D(h%20-%20%5Chat%7Bh%7D)'%20%5Cbigl%5B-%5Cnabla%5E2%20%5Cell(%5Chat%7Bh%7D)%5Cbigr%5D(h%20-%20%5Chat%7Bh%7D).%0A"></p>
+<p>Now, exponentiating both sides, we obtain the local kernel <img src="https://latex.codecogs.com/png.latex?%0Ap(h%20%5Cmid%20Y,%20%5Ctheta)%20%5Cpropto%0A%5Cexp%5Cleft(%0A-%5Ctfrac%7B1%7D%7B2%7D(h%20-%20%5Chat%7Bh%7D)'%20%5Cbigl%5B-%5Cnabla%5E2%20%5Cell(%5Chat%7Bh%7D)%5Cbigr%5D(h%20-%20%5Chat%7Bh%7D)%0A%5Cright).%0A"></p>
+<p>This has the form of a Gaussian kernel. Defining <img src="https://latex.codecogs.com/png.latex?%0A%5CSigma%20=%20%5Cbigl%5B-%5Cnabla%5E2%20%5Cell(%5Chat%7Bh%7D)%5Cbigr%5D%5E%7B-1%7D,%0A"> we have the local Gaussian approximation to the posterior: <img src="https://latex.codecogs.com/png.latex?%0Ap(h%20%5Cmid%20Y,%20%5Ctheta)%20%5Capprox%20%5Cmathcal%7BN%7D(%5Chat%7Bh%7D,%20%5CSigma).%0A"></p>
+<hr>
+</section>
+<section id="interpretation-curvature-and-uncertainty" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="interpretation-curvature-and-uncertainty"><span class="header-section-number">2</span> Interpretation: Curvature and Uncertainty</h2>
+<ul>
+<li>The mode <img src="https://latex.codecogs.com/png.latex?%5Chat%7Bh%7D"> is the most likely latent state given <img src="https://latex.codecogs.com/png.latex?Y"> and <img src="https://latex.codecogs.com/png.latex?%5Ctheta">.</li>
+<li>The negative Hessian <img src="https://latex.codecogs.com/png.latex?-%5Cnabla%5E2%20%5Cell(%5Chat%7Bh%7D)"> captures the local curvature of the log posterior near the mode.</li>
+<li>If the curvature is sharper in some direction, then the corresponding eigenvalue of the negative Hessian is larger, which implies a smaller variance in that direction.</li>
+</ul>
+<hr>
+</section>
+<section id="some-potential-limitations" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="some-potential-limitations"><span class="header-section-number">3</span> Some Potential Limitations</h2>
+<p>This approximation only captures <strong>local geometry</strong>: it ignores skewness and heavy tails, and may fail when the posterior is multimodal.</p>
+
+
+</section>
+
+ ]]></description>
+  <guid>https://rainbowbow123.github.io/posts/local_gaussian/local_gaussian_approximation.html</guid>
+  <pubDate>Sat, 02 May 2026 14:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Difference between Ergodicity and Stationarity</title>
   <dc:creator>Yanhong Wan</dc:creator>
   <link>https://rainbowbow123.github.io/posts/Ergodicity_vs_Stationarity/</link>
   <description><![CDATA[ 
@@ -21,10 +63,10 @@
 
 
 
-<p>Consider a time series denoted as <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5C%7D_%7Bt=-%5Cinfty%7D%5E%7B%5Cinfty%7D"> that covers infinite time periods. An observed sequence <img src="https://latex.codecogs.com/png.latex?%5C%7By_t%5C%7D_%7Bt=-%5Cinfty%7D%5E%7B%5Cinfty%7D"> is <strong>one realization</strong> of the underlying stochastic process. In the finite case, the sequence <img src="https://latex.codecogs.com/png.latex?y_%7B1:T%7D"> is one realization of the joint distribution of <img src="https://latex.codecogs.com/png.latex?Y_%7B1:T%7D">. If we were to sample <img src="https://latex.codecogs.com/png.latex?n"> independent paths of <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5C%7D_%7Bt=-%5Cinfty%7D%5E%7B%5Cinfty%7D">, the collection of random variables <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5E%7B(1)%7D,%20Y_t%5E%7B(2)%7D,%20%5Cdots,%20Y_t%5E%7B(n)%7D%5C%7D"> at a specific time <img src="https://latex.codecogs.com/png.latex?t"> would constitute an i.i.d. random sample from the <strong>marginal distribution</strong> of <img src="https://latex.codecogs.com/png.latex?Y_t">.</p>
+<p>Consider a time series denoted as <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5C%7D_%7Bt=-%5Cinfty%7D%5E%7B%5Cinfty%7D">. If we observe a sequence of random variables <img src="https://latex.codecogs.com/png.latex?%5C%7By_t%5C%7D_%7Bt=-%5Cinfty%7D%5E%7B%5Cinfty%7D">, this is just one realization of the time series distribution. In the finite case, the sequence <img src="https://latex.codecogs.com/png.latex?y_%7B1:T%7D"> is one realization of the joint distribution of <img src="https://latex.codecogs.com/png.latex?Y_%7B1:T%7D">. If we sample <img src="https://latex.codecogs.com/png.latex?n"> paths of <img src="https://latex.codecogs.com/png.latex?Y_%7B1:T%7D"> independently, the set <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5E%7B(1)%7D,%20Y_t%5E%7B(2)%7D,%20%5Cdots,%20Y_t%5E%7B(n)%7D%5C%7D"> for a fixed <img src="https://latex.codecogs.com/png.latex?t"> is an i.i.d. random sample from the marginal distribution of <img src="https://latex.codecogs.com/png.latex?Y_t">.</p>
 <p>To analyze if the time series is stationary, we look at the moments of <img src="https://latex.codecogs.com/png.latex?Y_t">. If <img src="https://latex.codecogs.com/png.latex?%5Cmathbf%7BE%7D%5BY_t%5D%20=%20%5Cmu"> and <img src="https://latex.codecogs.com/png.latex?%5Cgamma_j%20:=%20%5Ctext%7BCov%7D(Y_t,%20Y_%7Bt-j%7D)"> do not depend on time <img src="https://latex.codecogs.com/png.latex?t">, the process is said to be covariance-stationary (weakly-stationary).</p>
-<p>However, covariance stationarity does not guarantee ergodicity for the mean, nor ergodicity for the distribution. A process is said to be <strong>ergodic for the mean</strong> if its time average converges in probability to the ensemble mean: <img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7B1%7D%7BT%7D%20%5Csum_%7Bt=1%7D%5E%7BT%7D%20Y_t%20%5Cxrightarrow%7Bp%7D%20%5Cmathbf%7BE%7D%5BY_t%5D.%0A"> A sufficient condition for this is <img src="https://latex.codecogs.com/png.latex?%5Csum_%7Bj=0%7D%5E%7B%5Cinfty%7D%20%7C%5Cgamma_j%7C%20%3C%20%5Cinfty">. Furthermore, the process is <strong>ergodic for the autocovariance</strong> if: <img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7B1%7D%7BT-j%7D%20%5Csum_%7Bt=j+1%7D%5E%7BT%7D%20(Y_t%20-%20%5Cmu)(Y_%7Bt-j%7D%20-%20%5Cmu)%20%5Cxrightarrow%7Bp%7D%20%5Cgamma_j%20%5Cquad%20%5Ctext%7Bfor%20all%20%7D%20j.%0A"></p>
-<p>To understand: Stationarity ensures that within one realization of <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5C%7D_%7B-%5Cinfty%7D%5E%7B%5Cinfty%7D">, the marginal distribution for each random variable does not change with time; Ergodicity, however, ensures that for any realization of the sequence <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5C%7D_%7B-%5Cinfty%7D%5E%7B%5Cinfty%7D">, the empirical distribution converges to the <strong>same</strong> stationary distribution.</p>
+<p>However, covariance stationarity does not guarantee ergodicity for the mean, nor ergodicity for the distribution. A process is said to be <strong>ergodic for the mean</strong> if its time average converges in probability to the ensemble mean: <img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7B1%7D%7BT%7D%20%5Csum_%7Bt=1%7D%5E%7BT%7D%20Y_t%20%5Cxrightarrow%7Bp%7D%20%5Cmathbf%7BE%7D%5BY_t%5D.%0A"> A sufficient condition for this is <img src="https://latex.codecogs.com/png.latex?%5Csum_%7Bj=0%7D%5E%7B%5Cinfty%7D%20%7C%5Cgamma_j%7C%20%3C%20%5Cinfty">. Furthermore, the process is <strong>ergodic for the second moments</strong> if: <img src="https://latex.codecogs.com/png.latex?%0A%5Cfrac%7B1%7D%7BT-j%7D%20%5Csum_%7Bt=j+1%7D%5E%7BT%7D%20(Y_t%20-%20%5Cmu)(Y_%7Bt-j%7D%20-%20%5Cmu)%20%5Cxrightarrow%7Bp%7D%20%5Cgamma_j%20%5Cquad%20%5Ctext%7Bfor%20all%20%7D%20j.%0A"></p>
+<p>Intuitively, stationarity ensures that the marginal distribution for each random variable within the process does not change with time. Ergodicity, however, ensures that for any single realization of the sequence <img src="https://latex.codecogs.com/png.latex?%5C%7BY_t%5C%7D_%7Bt=-%5Cinfty%7D%5E%7B%5Cinfty%7D">, the time average converges to the corresponding moment of the stationary distribution.</p>
 
 
 

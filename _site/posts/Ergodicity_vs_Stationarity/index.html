@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Yanhong Wan">
-<meta name="dcterms.date" content="2026-04-03">
+<meta name="dcterms.date" content="2026-03-31">
 
-<title>Definitions from Hamilton Chapter3 – Yanhong Wan</title>
+<title>Difference between Ergodicity and Stationarity – Yanhong Wan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,7 +145,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Definitions from Hamilton Chapter3</h1>
+      <h1 class="title">Difference between Ergodicity and Stationarity</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Econometrics</div>
                 <div class="quarto-category">Time Series</div>
@@ -166,7 +166,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">April 3, 2026</p>
+        <p class="date">March 31, 2026</p>
       </div>
     </div>
     
@@ -185,14 +185,14 @@ window.Quarto = {
 
 
 
-<p>Consider a time series denoted as <span class="math inline">\(\{Y_t\}_{t=-\infty}^{\infty}\)</span> that covers infinite time periods. An observed sequence <span class="math inline">\(\{y_t\}_{t=-\infty}^{\infty}\)</span> is <strong>one realization</strong> of the underlying stochastic process. In the finite case, the sequence <span class="math inline">\(y_{1:T}\)</span> is one realization of the joint distribution of <span class="math inline">\(Y_{1:T}\)</span>. If we were to sample <span class="math inline">\(n\)</span> independent paths of <span class="math inline">\(\{Y_t\}_{t=-\infty}^{\infty}\)</span>, the collection of random variables <span class="math inline">\(\{Y_t^{(1)}, Y_t^{(2)}, \dots, Y_t^{(n)}\}\)</span> at a specific time <span class="math inline">\(t\)</span> would constitute an i.i.d. random sample from the <strong>marginal distribution</strong> of <span class="math inline">\(Y_t\)</span>.</p>
+<p>Consider a time series denoted as <span class="math inline">\(\{Y_t\}_{t=-\infty}^{\infty}\)</span>. If we observe a sequence of random variables <span class="math inline">\(\{y_t\}_{t=-\infty}^{\infty}\)</span>, this is just one realization of the time series distribution. In the finite case, the sequence <span class="math inline">\(y_{1:T}\)</span> is one realization of the joint distribution of <span class="math inline">\(Y_{1:T}\)</span>. If we sample <span class="math inline">\(n\)</span> paths of <span class="math inline">\(Y_{1:T}\)</span> independently, the set <span class="math inline">\(\{Y_t^{(1)}, Y_t^{(2)}, \dots, Y_t^{(n)}\}\)</span> for a fixed <span class="math inline">\(t\)</span> is an i.i.d. random sample from the marginal distribution of <span class="math inline">\(Y_t\)</span>.</p>
 <p>To analyze if the time series is stationary, we look at the moments of <span class="math inline">\(Y_t\)</span>. If <span class="math inline">\(\mathbf{E}[Y_t] = \mu\)</span> and <span class="math inline">\(\gamma_j := \text{Cov}(Y_t, Y_{t-j})\)</span> do not depend on time <span class="math inline">\(t\)</span>, the process is said to be covariance-stationary (weakly-stationary).</p>
 <p>However, covariance stationarity does not guarantee ergodicity for the mean, nor ergodicity for the distribution. A process is said to be <strong>ergodic for the mean</strong> if its time average converges in probability to the ensemble mean: <span class="math display">\[
 \frac{1}{T} \sum_{t=1}^{T} Y_t \xrightarrow{p} \mathbf{E}[Y_t].
-\]</span> A sufficient condition for this is <span class="math inline">\(\sum_{j=0}^{\infty} |\gamma_j| &lt; \infty\)</span>. Furthermore, the process is <strong>ergodic for the autocovariance</strong> if: <span class="math display">\[
+\]</span> A sufficient condition for this is <span class="math inline">\(\sum_{j=0}^{\infty} |\gamma_j| &lt; \infty\)</span>. Furthermore, the process is <strong>ergodic for the second moments</strong> if: <span class="math display">\[
 \frac{1}{T-j} \sum_{t=j+1}^{T} (Y_t - \mu)(Y_{t-j} - \mu) \xrightarrow{p} \gamma_j \quad \text{for all } j.
 \]</span></p>
-<p>To understand: Stationarity ensures that within one realization of <span class="math inline">\(\{Y_t\}_{-\infty}^{\infty}\)</span>, the marginal distribution for each random variable does not change with time; Ergodicity, however, ensures that for any realization of the sequence <span class="math inline">\(\{Y_t\}_{-\infty}^{\infty}\)</span>, the empirical distribution converges to the <strong>same</strong> stationary distribution.</p>
+<p>Intuitively, stationarity ensures that the marginal distribution for each random variable within the process does not change with time. Ergodicity, however, ensures that for any single realization of the sequence <span class="math inline">\(\{Y_t\}_{t=-\infty}^{\infty}\)</span>, the time average converges to the corresponding moment of the stationary distribution.</p>
 
 
 
